@@ -1,0 +1,8 @@
+.env
+logs/*.log
+backups/*.sql
+public/uploads/documentos/*
+!public/uploads/documentos/.gitkeep
+.idea/
+.vscode/
+*.log

@@ -1,0 +1,222 @@
+/* Custom CSS para Sistema Escuela Pablo Neruda */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Variables de color */
+:root {
+    /* Nueva Paleta: Verde Institucional y Amarillo */
+    --primary-color: #106018; /* rgb(16, 96, 24) */
+    --secondary-color: #FFD700; /* Amarillo más legible que rgb(255, 255, 0) puros, pero ajustable */
+    --secondary-text: #000000; /* Texto sobre fondo amarillo */
+    
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-bg: #f8f9fa;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    background: linear-gradient(180deg, var(--primary-color) 0%, #0a3d0f 100%) !important;
+}
+
+.sidebar .nav-link {
+    color: rgba(255,255,255,0.85);
+    font-weight: 400;
+}
+
+.sidebar .nav-link:hover, .sidebar .nav-link.active {
+    color: var(--secondary-color) !important;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left: 4px solid var(--secondary-color);
+}
+
+.sidebar-brand img {
+    width: 35px; /* Ajustado a petición (aprox 30x30) */
+    height: auto;
+    border-radius: 50%; /* Circular looks better for shields */
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    border: 2px solid var(--secondary-color);
+}
+
+.sidebar-brand {
+    padding: 15px 10px;
+    text-align: left; /* Alineado a la izquierda para logo + texto inline */
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 10px;
+}
+
+.sidebar-brand div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.sidebar-brand h4 {
+    color: white;
+    font-weight: 700;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.2;
+}
+
+.sidebar-brand p {
+    color: var(--secondary-color);
+    font-size: 0.7rem;
+    margin: 0;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.2) !important; /* Blanco translúcido */
+    backdrop-filter: blur(10px); /* Efecto de desenfoque */
+    -webkit-backdrop-filter: blur(100px); /* Safari support */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Sombra suave para separación */
+}
+
+/* Dashboard Cards */
+.card.bg-primary { background-color: var(--primary-color) !important; }
+.card.bg-warning { 
+    background-color: var(--secondary-color) !important; 
+    color: var(--secondary-text) !important;
+}
+
+/* Buttons */
+.btn-primary {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background: #0a3d0f;
+    border-color: #0a3d0f;
+}
+
+/* Botón Amarillo Específico (Create User) */
+.btn-yellow {
+    background-color: var(--secondary-color) !important;
+    color: var(--secondary-text) !important;
+    border: none;
+    font-weight: 500;
+}
+
+.btn-yellow:hover {
+    background-color: #e6c200 !important; /* Un poco más oscuro al hover */
+    color: #000 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.text-primary { color: var(--primary-color) !important; }
+
+/* Table Headers */
+.table thead th {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Alertas de alergias */
+.allergy-alert {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.allergy-alert i {
+    color: #ffc107;
+    font-size: 1.2em;
+    margin-right: 8px;
+}
+
+/* Badges de estado */
+.badge-aprobado {
+    background-color: var(--success-color);
+}
+
+.badge-reprobado {
+    background-color: var(--danger-color);
+}
+
+/* Tablas responsive mejoradas */
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background: var(--primary-color) !important;
+    color: white;
+    font-weight: 600;
+    border: none;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+/* Formularios mejorados */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Botones Generales */
+.btn-primary {
+    /* Duplicado arriba, pero limpiamos este bloque legacy */
+    background: var(--primary-color);
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Loading spinner */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Estilos para inputs de notas */
+.nota-input {
+    max-width: 80px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.nota-input.aprobado {
+    border-color: var(--success-color);
+    background-color: #f1ffed;
+}
+
+.nota-input.reprobado {
+    border-color: var(--danger-color);
+    background-color: #ffe6e6;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .sidebar {
+        position: relative;
+        min-height: auto;
+    }
+    
+    .card-body h2 {
+        font-size: 1.5rem;
+    }
+}

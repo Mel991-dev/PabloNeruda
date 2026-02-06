@@ -1,0 +1,118 @@
+
+--- USUARIO 'profesor' ---
+Array
+(
+    [id_usuario] => 4
+    [username] => profesor
+    [rol] => Profesor
+    [fk_profesor] => 1
+)
+
+--- DATOS DEL PROFESOR VINCULADO ---
+Array
+(
+    [id_profesor] => 1
+    [nombre] => Juan
+    [apellido] => Pérez
+    [tipo_documento] => CC
+    [numero_documento] => 1234567890
+    [telefono] => 3001234567
+    [email] => juan.perez@escuela.edu.co
+    [especialidad] => Matemáticas
+    [fecha_ingreso] => 2024-01-15
+    [estado] => Activo
+)
+
+--- TODAS LAS MATRICULAS POR CURSO ---
+Array
+(
+    [0] => Array
+        (
+            [id_curso] => 9
+            [grado] => 3°
+            [seccion] => A
+            [total] => 2
+        )
+
+)
+
+--- TODAS LAS ASIGNACIONES DE PROFESORES ---
+Array
+(
+    [0] => Array
+        (
+            [nombre] => Carlos
+            [grado] => Preescolar
+            [seccion] => A
+            [materia] => Biología
+            [año_lectivo] => 2026
+        )
+
+    [1] => Array
+        (
+            [nombre] => Juan
+            [grado] => Preescolar
+            [seccion] => A
+            [materia] => Matemáticas
+            [año_lectivo] => 2026
+        )
+
+    [2] => Array
+        (
+            [nombre] => Juan
+            [grado] => Preescolar
+            [seccion] => B
+            [materia] => Matemáticas
+            [año_lectivo] => 2026
+        )
+
+    [3] => Array
+        (
+            [nombre] => María
+            [grado] => Preescolar
+            [seccion] => A
+            [materia] => Español
+            [año_lectivo] => 2026
+        )
+
+    [4] => Array
+        (
+            [nombre] => María
+            [grado] => Preescolar
+            [seccion] => B
+            [materia] => Español
+            [año_lectivo] => 2026
+        )
+
+)
+
+--- ASIGNACIONES DEL PROFESOR ---
+Array
+(
+    [0] => Array
+        (
+            [id_asignacion] => 1
+            [fk_profesor] => 1
+            [fk_materia] => 1
+            [fk_curso] => 1
+            [año_lectivo] => 2026
+            [fecha_asignacion] => 2026-02-01
+            [materia] => Matemáticas
+            [grado] => Preescolar
+            [seccion] => A
+        )
+
+    [1] => Array
+        (
+            [id_asignacion] => 4
+            [fk_profesor] => 1
+            [fk_materia] => 1
+            [fk_curso] => 2
+            [año_lectivo] => 2026
+            [fecha_asignacion] => 2026-02-01
+            [materia] => Matemáticas
+            [grado] => Preescolar
+            [seccion] => B
+        )
+
+)
