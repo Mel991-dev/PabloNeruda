@@ -5,69 +5,102 @@
 
 /* Variables de color */
 :root {
-    /* Nueva Paleta: Verde Institucional y Amarillo */
-    --primary-color: #106018; /* rgb(16, 96, 24) */
-    --secondary-color: #FFD700; /* Amarillo más legible que rgb(255, 255, 0) puros, pero ajustable */
-    --secondary-text: #000000; /* Texto sobre fondo amarillo */
-    
-    --success-color: #28a745;
-    --danger-color: #dc3545;
-    --warning-color: #ffc107;
-    --info-color: #17a2b8;
-    --light-bg: #f8f9fa;
+    --primary-color: #106018;
+    --secondary-color: #FFD700;
+    --secondary-text: #000000;
+    --sidebar-collapsed-width: 65px;
+    --sidebar-expanded-width: 250px;
+    --transition-speed: 0.3s;
 }
 
 body {
     font-family: 'Roboto', sans-serif;
     color: #333;
+    background-color: #f8f9fa;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Layout Container */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
 }
 
 /* Sidebar Styling */
 .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--sidebar-collapsed-width);
     background: linear-gradient(180deg, var(--primary-color) 0%, #0a3d0f 100%) !important;
+    color: white;
+    z-index: 1000;
+    transition: width var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-x: hidden;
+    cursor: pointer;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.1);
 }
 
-.sidebar .nav-link {
-    color: rgba(255,255,255,0.85);
-    font-weight: 400;
+/* Sidebar Expand conditions */
+.sidebar:hover,
+.sidebar.pinned {
+    width: var(--sidebar-expanded-width);
 }
 
-.sidebar .nav-link:hover, .sidebar .nav-link.active {
-    color: var(--secondary-color) !important;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-left: 4px solid var(--secondary-color);
+/* Main Content Adjustments */
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-collapsed-width);
+    transition: margin-left var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 100vh;
+    width: calc(100% - var(--sidebar-collapsed-width));
+}
+
+.sidebar:hover + .main-content,
+.sidebar.pinned + .main-content {
+    margin-left: var(--sidebar-expanded-width);
+}
+
+/* Sidebar Internal Elements */
+.sidebar-brand {
+    padding: 15px 10px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 10px;
+    height: 70px;
 }
 
 .sidebar-brand img {
-    width: 35px; /* Ajustado a petición (aprox 30x30) */
-    height: auto;
-    border-radius: 50%; /* Circular looks better for shields */
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    margin-left: 2px;
+    border-radius: 50%;
     border: 2px solid var(--secondary-color);
+    flex-shrink: 0;
 }
 
-.sidebar-brand {
-    padding: 15px 10px;
-    text-align: left; /* Alineado a la izquierda para logo + texto inline */
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 10px;
+.brand-text {
+    opacity: 0;
+    margin-left: 15px;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
 }
 
-.sidebar-brand div {
-    display: inline-block;
-    vertical-align: middle;
+.sidebar:hover .brand-text,
+.sidebar.pinned .brand-text {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .sidebar-brand h4 {
     color: white;
     font-weight: 700;
     margin: 0;
-    font-size: 0.9rem;
-    line-height: 1.2;
+    font-size: 0.95rem;
 }
 
 .sidebar-brand p {
@@ -76,147 +109,70 @@ body {
     margin: 0;
 }
 
-/* Navbar Styles */
+/* Nav Link Styling */
+.sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    white-space: nowrap;
+    border-left: 4px solid transparent;
+    transition: background var(--transition-speed);
+}
+
+.sidebar .nav-link i {
+    font-size: 1.25rem;
+    width: var(--sidebar-collapsed-width);
+    text-align: center;
+    flex-shrink: 0;
+    margin-left: -4px; /* Compensate for border-left */
+}
+
+.nav-text {
+    opacity: 0;
+    margin-left: 5px;
+    transition: opacity 0.2s ease;
+}
+
+.sidebar:hover .nav-text,
+.sidebar.pinned .nav-text {
+    opacity: 1;
+}
+
+.sidebar .nav-link:hover, 
+.sidebar .nav-link.active {
+    color: var(--secondary-color) !important;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left-color: var(--secondary-color);
+}
+
+.separator-item {
+    padding: 0 10px;
+}
+
+/* Navbar & General */
 .navbar {
-    background-color: rgba(255, 255, 255, 0.2) !important; /* Blanco translúcido */
-    backdrop-filter: blur(10px); /* Efecto de desenfoque */
-    -webkit-backdrop-filter: blur(100px); /* Safari support */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Sombra suave para separación */
+    background-color: #fff !important;
+    border-bottom: 1px solid #eee;
+    z-index: 900;
 }
 
-/* Dashboard Cards */
-.card.bg-primary { background-color: var(--primary-color) !important; }
-.card.bg-warning { 
-    background-color: var(--secondary-color) !important; 
-    color: var(--secondary-text) !important;
-}
-
-/* Buttons */
-.btn-primary {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-.btn-primary:hover {
-    background: #0a3d0f;
-    border-color: #0a3d0f;
-}
-
-/* Botón Amarillo Específico (Create User) */
-.btn-yellow {
-    background-color: var(--secondary-color) !important;
-    color: var(--secondary-text) !important;
-    border: none;
-    font-weight: 500;
-}
-
-.btn-yellow:hover {
-    background-color: #e6c200 !important; /* Un poco más oscuro al hover */
-    color: #000 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
+.badge-primary { background-color: var(--primary-color); }
 .text-primary { color: var(--primary-color) !important; }
 
-/* Table Headers */
-.table thead th {
-    background: var(--primary-color);
-    color: white;
-}
-
-/* Alertas de alergias */
-.allergy-alert {
-    background-color: #fff3cd;
-    border-left: 4px solid #ffc107;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-}
-
-.allergy-alert i {
-    color: #ffc107;
-    font-size: 1.2em;
-    margin-right: 8px;
-}
-
-/* Badges de estado */
-.badge-aprobado {
-    background-color: var(--success-color);
-}
-
-.badge-reprobado {
-    background-color: var(--danger-color);
-}
-
-/* Tablas responsive mejoradas */
-.table-responsive {
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.table thead th {
-    background: var(--primary-color) !important;
-    color: white;
-    font-weight: 600;
-    border: none;
-}
-
-.table tbody tr:hover {
-    background-color: #f8f9fa;
-    cursor: pointer;
-}
-
-/* Formularios mejorados */
-.form-control:focus,
-.form-select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-}
-
-/* Botones Generales */
-.btn-primary {
-    /* Duplicado arriba, pero limpiamos este bloque legacy */
-    background: var(--primary-color);
-    border: none;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-}
-
-/* Loading spinner */
-.spinner-border-sm {
-    width: 1rem;
-    height: 1rem;
-}
-
-/* Estilos para inputs de notas */
-.nota-input {
-    max-width: 80px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.nota-input.aprobado {
-    border-color: var(--success-color);
-    background-color: #f1ffed;
-}
-
-.nota-input.reprobado {
-    border-color: var(--danger-color);
-    background-color: #ffe6e6;
-}
-
-/* Responsive para móviles */
-@media (max-width: 768px) {
+/* Responsive */
+@media (max-width: 900px) {
     .sidebar {
-        position: relative;
-        min-height: auto;
+        width: 0;
+        visibility: hidden;
     }
-    
-    .card-body h2 {
-        font-size: 1.5rem;
+    .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    .sidebar.mobile-open {
+        width: var(--sidebar-expanded-width);
+        visibility: visible;
     }
 }

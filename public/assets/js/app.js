@@ -11,7 +11,7 @@ function showToast(message, type = 'success') {
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
     toastContainer.appendChild(toast);
-    
+
     setTimeout(() => {
         toast.remove();
     }, 5000);
@@ -58,7 +58,7 @@ function confirmarEliminacion(mensaje = '¿Estás seguro de que deseas eliminar 
 }
 
 // Auto-ocultamiento de mensajes flash
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const alerts = document.querySelectorAll('.alert:not(.alert-permanent)');
     alerts.forEach(alert => {
         setTimeout(() => {
@@ -66,6 +66,23 @@ document.addEventListener('DOMContentLoaded', function() {
             bsAlert.close();
         }, 5000);
     });
+
+    // Barra lateral dinámica: Pin con clic
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+        sidebar.addEventListener('click', function (e) {
+            // Evitar que el clic en un enlace active el pin si solo se quiere navegar
+            if (e.target.closest('a')) return;
+
+            this.classList.toggle('pinned');
+            localStorage.setItem('sidebarPinned', this.classList.contains('pinned'));
+        });
+
+        // Recuperar estado previo
+        if (localStorage.getItem('sidebarPinned') === 'true') {
+            sidebar.classList.add('pinned');
+        }
+    }
 });
 
 // Validación de formularios Bootstrap
@@ -81,4 +98,4 @@ document.addEventListener('DOMContentLoaded', function() {
             form.classList.add('was-validated')
         }, false)
     })
-})()
+})();
