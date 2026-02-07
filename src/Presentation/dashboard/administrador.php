@@ -81,7 +81,7 @@ ob_start();
             </div>
             <div class="card-body">
                 <div class="d-grid gap-2">
-                    <a href="<?php echo APP_URL; ?>/usuarios/crear" class="btn btn-yellow">
+                    <a href="<?php echo APP_URL; ?>/usuarios/crear" class="btn btn-warning">
                         <i class="bi bi-plus-circle"></i> Crear Usuario
                     </a>
                     <a href="<?php echo APP_URL; ?>/cursos/crear" class="btn btn-success">
