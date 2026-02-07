@@ -165,10 +165,12 @@ $primerAntecedente = $antecedentes[0] ?? null;
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="victima" value="1" <?php echo ($socio && $socio->esVictimaConflicto()) ? 'checked' : ''; ?>>
-                                                <label class="form-check-label small text-danger fw-bold">Víctima conflicto</label>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" name="desplazado" value="1" id="desplazadoCheckEdit" <?php echo ($socio && $socio->esDesplazado()) ? 'checked' : ''; ?>>
+                                                <label class="form-check-label small" for="desplazadoCheckEdit">Población Desplazada</label>
                                             </div>
+                                            <input type="text" name="lugar_desplazamiento" id="lugarDesplazamientoEdit" class="form-control mt-2 <?php echo ($socio && $socio->esDesplazado()) ? '' : 'd-none'; ?>" 
+                                                value="<?php echo $socio ? htmlspecialchars($socio->getLugarDesplazamiento() ?? '') : ''; ?>" placeholder="Lugar de desplazamiento">
                                         </div>
                                     </div>
                                 </div>
@@ -195,12 +197,30 @@ $primerAntecedente = $antecedentes[0] ?? null;
                                             <input type="text" name="padre_apellido" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getApellido()) : ''; ?>">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label small fw-bold">Cédula</label>
-                                            <input type="text" name="padre_num_doc" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getNumeroDocumento()) : ''; ?>">
+                                            <label class="form-label small fw-bold">Ocupación</label>
+                                            <input type="text" name="padre_ocupacion" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getOcupacion() ?? '') : ''; ?>">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label small fw-bold">Teléfono</label>
-                                            <input type="text" name="padre_tel" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getTelefono() ?? '') : ''; ?>">
+                                            <label class="form-label small fw-bold">Empresa / Trabajo</label>
+                                            <input type="text" name="padre_empresa" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getEmpresa() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Nivel Educativo</label>
+                                            <input type="text" name="padre_nivel_educativo" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getNivelEducativo() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Email</label>
+                                            <input type="email" name="padre_email" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getEmail() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">Dirección / Barrio</label>
+                                            <input type="text" name="padre_direccion" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getDireccion() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="padre_vive" value="1" id="padreViveEdit" <?php echo ($padre && $padre->viveConEstudiante()) ? 'checked' : ''; ?>>
+                                                <label class="form-check-label small" for="padreViveEdit">¿Vive con el estudiante?</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -216,12 +236,30 @@ $primerAntecedente = $antecedentes[0] ?? null;
                                             <input type="text" name="madre_apellido" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getApellido()) : ''; ?>">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label small fw-bold">Cédula</label>
-                                            <input type="text" name="madre_num_doc" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getNumeroDocumento()) : ''; ?>">
+                                            <label class="form-label small fw-bold">Ocupación</label>
+                                            <input type="text" name="madre_ocupacion" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getOcupacion() ?? '') : ''; ?>">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="form-label small fw-bold">Teléfono</label>
-                                            <input type="text" name="madre_tel" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getTelefono() ?? '') : ''; ?>">
+                                            <label class="form-label small fw-bold">Empresa / Trabajo</label>
+                                            <input type="text" name="madre_empresa" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getEmpresa() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Nivel Educativo</label>
+                                            <input type="text" name="madre_nivel_educativo" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getNivelEducativo() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Email</label>
+                                            <input type="email" name="madre_email" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getEmail() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">Dirección / Barrio</label>
+                                            <input type="text" name="madre_direccion" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getDireccion() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="madre_vive" value="1" id="madreViveEdit" <?php echo ($madre && $madre->viveConEstudiante()) ? 'checked' : ''; ?>>
+                                                <label class="form-check-label small" for="madreViveEdit">¿Vive con el estudiante?</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -244,6 +282,10 @@ $primerAntecedente = $antecedentes[0] ?? null;
                                             <input type="text" name="acudiente_nombre" class="form-control" value="<?php echo htmlspecialchars($acudiente['nombre'] ?? ''); ?>" required>
                                         </div>
                                         <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Apellidos <span class="text-danger">*</span></label>
+                                            <input type="text" name="acudiente_apellido" class="form-control" value="<?php echo htmlspecialchars($acudiente['apellido'] ?? ''); ?>" required>
+                                        </div>
+                                        <div class="col-md-6">
                                             <label class="form-label small fw-bold">Parentesco</label>
                                             <select name="acudiente_parentesco" class="form-select">
                                                 <?php foreach(['Padre', 'Madre', 'Abuelo/a', 'Tío/a', 'Otro'] as $p): ?>
@@ -251,9 +293,25 @@ $primerAntecedente = $antecedentes[0] ?? null;
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-                                        <div class="col-md-12">
-                                            <label class="form-label small fw-bold">Teléfono Emergencia <span class="text-danger">*</span></label>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Teléfono Principal <span class="text-danger">*</span></label>
                                             <input type="text" name="acudiente_telefono" class="form-control" value="<?php echo htmlspecialchars($acudiente['telefono'] ?? ''); ?>" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Teléfono Secundario</label>
+                                            <input type="text" name="acudiente_telefono_secundario" class="form-control" value="<?php echo htmlspecialchars($acudiente['telefono_secundario'] ?? ''); ?>">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label small fw-bold">Ocupación</label>
+                                            <input type="text" name="acudiente_ocupacion" class="form-control" value="<?php echo htmlspecialchars($acudiente['ocupacion'] ?? ''); ?>">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <label class="form-label small fw-bold">Email</label>
+                                            <input type="email" name="acudiente_email" class="form-control" value="<?php echo htmlspecialchars($acudiente['email'] ?? ''); ?>">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">Dirección</label>
+                                            <input type="text" name="acudiente_direccion" class="form-control" value="<?php echo htmlspecialchars($acudiente['direccion'] ?? ''); ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -265,8 +323,20 @@ $primerAntecedente = $antecedentes[0] ?? null;
                                             <input type="text" name="procedencia" class="form-control" value="<?php echo htmlspecialchars($estudiante->getProcedenciaInstitucion() ?? ''); ?>">
                                         </div>
                                         <div class="col-12">
-                                            <label class="form-label small fw-bold">Último colegio (Académico)</label>
-                                            <input type="text" name="ant_institucion" class="form-control" value="<?php echo $primerAntecedente ? htmlspecialchars($primerAntecedente->getInstitucion()) : ''; ?>">
+                                            <label class="form-label small fw-bold">Grado Procedencia</label>
+                                            <input type="text" name="ant_nivel" class="form-control" value="<?php echo $primerAntecedente ? htmlspecialchars($primerAntecedente->getNivelEducativo() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">Años Cursados</label>
+                                            <input type="text" name="ant_anios" class="form-control" value="<?php echo $primerAntecedente ? htmlspecialchars($primerAntecedente->getAniosCursados() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">Motivo de Retiro</label>
+                                            <input type="text" name="ant_motivo" class="form-control" value="<?php echo $primerAntecedente ? htmlspecialchars($primerAntecedente->getMotivoRetiro() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">Observaciones</label>
+                                            <textarea name="ant_observaciones" class="form-control" rows="2"><?php echo $primerAntecedente ? htmlspecialchars($primerAntecedente->getObservaciones() ?? '') : ''; ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -300,10 +370,16 @@ $primerAntecedente = $antecedentes[0] ?? null;
         nextBtns.forEach((btn, idx) => { btn.addEventListener('click', () => { goToTab(idx + 1); }); });
         prevBtns.forEach((btn, idx) => { btn.addEventListener('click', () => { goToTab(idx); }); });
 
-        const alergiasCheckEdit = document.getElementById('alergiasCheckEdit');
-        const alergiasTextEdit = document.getElementById('alergiasTextEdit');
         alergiasCheckEdit.addEventListener('change', function() {
             alergiasTextEdit.classList.toggle('d-none', !this.checked);
+        });
+
+        // Toggle Desplazado
+        const desplazadoCheckEdit = document.getElementById('desplazadoCheckEdit');
+        const lugarDespEdit = document.getElementById('lugarDesplazamientoEdit');
+        desplazadoCheckEdit.addEventListener('change', function() {
+            lugarDespEdit.classList.toggle('d-none', !this.checked);
+            if(this.checked) lugarDespEdit.focus();
         });
 
         // Validación simple

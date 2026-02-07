@@ -195,9 +195,10 @@ ob_start();
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" name="desplazado" value="1">
-                                                <label class="form-check-label small">Desplazado</label>
+                                                <input class="form-check-input" type="checkbox" name="desplazado" value="1" id="desplazadoCheck">
+                                                <label class="form-check-label small" for="desplazadoCheck">Población Desplazada</label>
                                             </div>
+                                            <input type="text" name="lugar_desplazamiento" id="lugarDesplazamiento" class="form-control mt-2 d-none" placeholder="Lugar de desplazamiento">
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label small fw-bold">Grupo Étnico</label>
@@ -236,14 +237,30 @@ ob_start();
                                             <label class="form-label small fw-bold">Teléfono</label>
                                             <input type="text" name="padre_tel" class="form-control">
                                         </div>
-                                        <div class="col-12">
-                                            <label class="form-label small fw-bold">Empresa / Ocupación</label>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Ocupación</label>
+                                            <input type="text" name="padre_ocupacion" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Empresa / Lugar de Trabajo</label>
                                             <input type="text" name="padre_empresa" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Nivel Educativo</label>
+                                            <input type="text" name="padre_nivel_educativo" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Email</label>
+                                            <input type="email" name="padre_email" class="form-control">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">Dirección / Barrio</label>
+                                            <input type="text" name="padre_direccion" class="form-control" placeholder="Dirección completa y barrio">
                                         </div>
                                         <div class="col-12">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="padre_vive" value="1" id="padreVive">
-                                                <label class="form-check-label small" for="padreVive text-muted">¿Vive con el estudiante?</label>
+                                                <label class="form-check-label small" for="padreVive">¿Vive con el estudiante?</label>
                                             </div>
                                         </div>
                                     </div>
@@ -269,9 +286,25 @@ ob_start();
                                             <label class="form-label small fw-bold">Teléfono</label>
                                             <input type="text" name="madre_tel" class="form-control">
                                         </div>
-                                        <div class="col-12">
-                                            <label class="form-label small fw-bold">Empresa / Ocupación</label>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Ocupación</label>
+                                            <input type="text" name="madre_ocupacion" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Empresa / Lugar de Trabajo</label>
                                             <input type="text" name="madre_empresa" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Nivel Educativo</label>
+                                            <input type="text" name="madre_nivel_educativo" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Email</label>
+                                            <input type="email" name="madre_email" class="form-control">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">Dirección / Barrio</label>
+                                            <input type="text" name="madre_direccion" class="form-control" placeholder="Dirección completa y barrio">
                                         </div>
                                         <div class="col-12">
                                             <div class="form-check">
@@ -319,9 +352,21 @@ ob_start();
                                             <label class="form-label small fw-bold">Teléfono Principal <span class="text-danger">*</span></label>
                                             <input type="text" name="acudiente_telefono" class="form-control" required>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Teléfono Secundario</label>
+                                            <input type="text" name="acudiente_telefono_secundario" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Email</label>
+                                            <input type="email" name="acudiente_email" class="form-control">
+                                        </div>
+                                        <div class="col-md-8">
                                             <label class="form-label small fw-bold">Dirección</label>
                                             <input type="text" name="acudiente_direccion" class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label small fw-bold">Ocupación</label>
+                                            <input type="text" name="acudiente_ocupacion" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -331,12 +376,16 @@ ob_start();
                                     <h6 class="text-info border-bottom pb-2 mb-3"><i class="bi bi-journal-check"></i> Historial</h6>
                                     <div class="row g-3">
                                         <div class="col-12">
-                                            <label class="form-label small fw-bold">Última Institución</label>
-                                            <input type="text" name="ant_institucion" class="form-control">
+                                            <label class="form-label small fw-bold">Años Cursados</label>
+                                            <input type="text" name="ant_anios" class="form-control" placeholder="Ej: 5 años">
                                         </div>
                                         <div class="col-12">
-                                            <label class="form-label small fw-bold">Último Grado Cursado</label>
-                                            <input type="text" name="ant_nivel" class="form-control">
+                                            <label class="form-label small fw-bold">Motivo de Retiro</label>
+                                            <input type="text" name="ant_motivo" class="form-control">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label small fw-bold">Observaciones</label>
+                                            <textarea name="ant_observaciones" class="form-control" rows="2"></textarea>
                                         </div>
                                         <div class="col-12 text-center py-4">
                                             <i class="bi bi-shield-check text-success display-4"></i>
@@ -392,6 +441,14 @@ ob_start();
         alergiasCheck.addEventListener('change', function() {
             alergiasText.classList.toggle('d-none', !this.checked);
             if(this.checked) alergiasText.focus();
+        });
+        
+        // Toggle Desplazado
+        const desplazadoCheck = document.getElementById('desplazadoCheck');
+        const lugarDesp = document.getElementById('lugarDesplazamiento');
+        desplazadoCheck.addEventListener('change', function() {
+            lugarDesp.classList.toggle('d-none', !this.checked);
+            if(this.checked) lugarDesp.focus();
         });
 
         // Validación Bootstrap

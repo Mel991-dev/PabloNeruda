@@ -74,6 +74,10 @@ class NotaService
                     (float)($notas[4] ?? 0),
                     (float)($notas[5] ?? 0)
                 );
+
+                if (isset($notas['observaciones'])) {
+                    $nota->setObservaciones($notas['observaciones']);
+                }
                 
                 // Guardar (el repositorio maneja insert vs update)
                 $this->notaRepo->save($nota);

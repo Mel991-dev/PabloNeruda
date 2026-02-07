@@ -102,9 +102,9 @@ class EstudianteController
                 'victima_conflicto_detalle' => $request->input('victima_detalle'),
                 'grupo_etnico' => $request->input('etnia'),
                 'resguardo_indigena' => $request->input('resguardo'),
-                'familias_en_accion' => $request->input('familias_accion') === '1',
+                'familias_en_accion' => $request->input('familias_en_accion') === '1',
                 'poblacion_desplazada' => $request->input('desplazado') === '1',
-                'lugar_desplazamiento' => $request->input('lugar_desp')
+                'lugar_desplazamiento' => $request->input('lugar_desplazamiento')
             ];
 
             // Padres
@@ -118,6 +118,8 @@ class EstudianteController
                     'empresa' => $request->input('padre_empresa'),
                     'telefono' => $request->input('padre_tel'),
                     'email' => $request->input('padre_email'),
+                    'direccion' => $request->input('padre_direccion'),
+                    'nivel_educativo' => $request->input('padre_nivel_educativo'),
                     'vive_con_estudiante' => $request->input('padre_vive') === '1'
                 ];
             }
@@ -132,6 +134,8 @@ class EstudianteController
                     'empresa' => $request->input('madre_empresa'),
                     'telefono' => $request->input('madre_tel'),
                     'email' => $request->input('madre_email'),
+                    'direccion' => $request->input('madre_direccion'),
+                    'nivel_educativo' => $request->input('madre_nivel_educativo'),
                     'vive_con_estudiante' => $request->input('madre_vive') === '1'
                 ];
             }
@@ -142,7 +146,8 @@ class EstudianteController
                     'nivel_educativo' => $request->input('ant_nivel'),
                     'institucion' => $request->input('ant_institucion'),
                     'años_cursados' => $request->input('ant_anios'),
-                    'motivo_retiro' => $request->input('ant_motivo')
+                    'motivo_retiro' => $request->input('ant_motivo'),
+                    'observaciones' => $request->input('ant_observaciones')
                 ]];
             }
 
@@ -294,9 +299,9 @@ class EstudianteController
                 'victima_conflicto_detalle' => $request->input('victima_detalle'),
                 'grupo_etnico' => $request->input('etnia'),
                 'resguardo_indigena' => $request->input('resguardo'),
-                'familias_en_accion' => $request->input('familias_accion') === '1',
+                'familias_en_accion' => $request->input('familias_en_accion') === '1',
                 'poblacion_desplazada' => $request->input('desplazado') === '1',
-                'lugar_desplazamiento' => $request->input('lugar_desp')
+                'lugar_desplazamiento' => $request->input('lugar_desplazamiento')
             ];
 
             // Padres
@@ -310,6 +315,8 @@ class EstudianteController
                     'empresa' => $request->input('padre_empresa'),
                     'telefono' => $request->input('padre_tel'),
                     'email' => $request->input('padre_email'),
+                    'direccion' => $request->input('padre_direccion'),
+                    'nivel_educativo' => $request->input('padre_nivel_educativo'),
                     'vive_con_estudiante' => $request->input('padre_vive') === '1'
                 ];
             }
@@ -324,6 +331,8 @@ class EstudianteController
                     'empresa' => $request->input('madre_empresa'),
                     'telefono' => $request->input('madre_tel'),
                     'email' => $request->input('madre_email'),
+                    'direccion' => $request->input('madre_direccion'),
+                    'nivel_educativo' => $request->input('madre_nivel_educativo'),
                     'vive_con_estudiante' => $request->input('madre_vive') === '1'
                 ];
             }
@@ -334,7 +343,8 @@ class EstudianteController
                     'nivel_educativo' => $request->input('ant_nivel'),
                     'institucion' => $request->input('ant_institucion'),
                     'años_cursados' => $request->input('ant_anios'),
-                    'motivo_retiro' => $request->input('ant_motivo')
+                    'motivo_retiro' => $request->input('ant_motivo'),
+                    'observaciones' => $request->input('ant_observaciones')
                 ]];
             }
 

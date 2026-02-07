@@ -35,7 +35,7 @@ ob_start();
                             <th style="width: 10%;">Nota 4</th>
                             <th style="width: 10%;">Nota 5</th>
                             <th style="width: 10%;">Promedio</th>
-                            <th style="width: 15%;">Estado</th>
+                            <th style="width: 15%;">Observaciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,10 +102,11 @@ ob_start();
                                     <td class="text-center fw-bold fs-5 text-primary">
                                         <?php echo number_format((float)$prom, 1); ?>
                                     </td>
-                                    <td class="text-center">
-                                        <span class="badge <?php echo $bgEstado; ?> w-100">
-                                            <?php echo $estado; ?>
-                                        </span>
+                                    <td>
+                                        <input type="text" class="form-control form-control-sm" 
+                                            name="notas[<?php echo $idMat; ?>][observaciones]" 
+                                            value="<?php echo htmlspecialchars($est['observaciones'] ?? ''); ?>"
+                                            placeholder="Opcional...">
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

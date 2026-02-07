@@ -35,11 +35,6 @@ $rol = Session::get('rol', '');
     <?php if (in_array($rol, ['Profesor', 'Administrador'])): ?>
     <li class="nav-item">
         <a class="nav-link" href="<?php echo APP_URL; ?>/notas">
-            <i class="bi bi-clipboard-check"></i> Mis Notas
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="<?php echo APP_URL; ?>/notas/registrar">
             <i class="bi bi-pencil-square"></i> Registrar Notas
         </a>
     </li>
