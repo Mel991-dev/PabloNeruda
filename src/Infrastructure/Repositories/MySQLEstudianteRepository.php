@@ -88,6 +88,19 @@ class MySQLEstudianteRepository implements EstudianteRepositoryInterface
                 $estudiante->setMadre(Familiar::fromArray($row));
             }
         }
+
+        // 5. Nombre del Curso Actual
+        $stmt = $this->db->prepare("
+            SELECT CONCAT(c.grado, ' - ', c.seccion) as nombre_curso
+            FROM matriculas m
+            INNER JOIN cursos c ON m.fk_curso = c.id_curso
+            WHERE m.fk_estudiante = :id AND m.estado = 'Activo'
+            LIMIT 1
+        ");
+        $stmt->execute(['id' => $id]);
+        if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $estudiante->setNombreCurso($row['nombre_curso']);
+        }
     }
 
     public function findByCurso(int $cursoId): array

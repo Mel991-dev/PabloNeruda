@@ -22,6 +22,7 @@ class Estudiante
     private int $numero_hermanos = 0;
     private string $estado = 'Activo'; // Activo, Retirado, Graduado
     private ?string $fecha_registro = null;
+    private ?string $nombre_curso = null;
     
     // Propiedades V2 (Relaciones)
     private ?string $lugar_nacimiento = null;
@@ -111,6 +112,11 @@ class Estudiante
     public function getFechaRegistro(): ?string
     {
         return $this->fecha_registro;
+    }
+
+    public function getNombreCurso(): ?string
+    {
+        return $this->nombre_curso;
     }
 
     // Getters V2
@@ -225,6 +231,12 @@ class Estudiante
     public function setFechaRegistro(?string $fecha_registro): self
     {
         $this->fecha_registro = $fecha_registro;
+        return $this;
+    }
+
+    public function setNombreCurso(?string $nombre_curso): self
+    {
+        $this->nombre_curso = $nombre_curso;
         return $this;
     }
 
