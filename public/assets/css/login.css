@@ -1,0 +1,169 @@
+:root {
+    --primary-color: #106018;
+    --secondary-color: #FFD700;
+    --light-bg: #f4f7f6;
+    --emerald-mockup: #38b493;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--secondary-color);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.login-container {
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.5);
+    display: flex;
+    overflow: hidden;
+    width: 1000px;
+    max-width: 95vw;
+    min-height: 550px;
+}
+
+/* Columna Izquierda: Formulario */
+.login-form-section {
+    width: 50%;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-form-section h1 {
+    font-weight: 800;
+    margin-bottom: 40px;
+    color: #222;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.input-group-custom {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group-custom i {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 1.2rem;
+    z-index: 10;
+}
+
+.input-group-custom .form-control {
+    padding: 18px 15px 18px 55px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.input-group-custom .form-control:focus {
+    box-shadow: 0 0 0 3px rgba(16, 96, 24, 0.1);
+    background-color: #e8e8e8;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.forgot-password a {
+    color: #555;
+    text-decoration: none;
+    font-size: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 2px;
+}
+
+.forgot-password a:hover {
+    color: var(--primary-color);
+    transition: all 0.2s ease;
+    border-bottom-color: var(--primary-color);
+}
+
+.btn-submit {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    width: 180px;
+    margin: 0 auto;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #0d4d13;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(16, 96, 24, 0.2);
+}
+
+/* Columna Derecha: Bienvenida */
+.welcome-section {
+    width: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    text-align: center;
+    position: relative;
+    border-top-left-radius: 100% 50%;
+    border-bottom-left-radius: 100% 50%;
+}
+
+.welcome-section h2 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-bottom: 25px;
+}
+
+.welcome-section p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 45px;
+    opacity: 0.95;
+    max-width: 350px;
+}
+
+/* Responsividad */
+@media (max-width: 900px) {
+    .login-container {
+        flex-direction: column;
+        width: 450px;
+        min-height: auto;
+        border-radius: 20px;
+    }
+    .login-form-section, .welcome-section {
+        width: 100%;
+        padding: 40px;
+    }
+    .welcome-section {
+        border-radius: 0;
+        order: -1;
+    }
+    .welcome-section h2 { font-size: 2.5rem; }
+    .login-form-section h1 { font-size: 2rem; }
+}
