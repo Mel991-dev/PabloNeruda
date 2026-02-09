@@ -247,15 +247,30 @@ ob_start();
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label small fw-bold">Nivel Educativo</label>
-                                            <input type="text" name="padre_nivel_educativo" class="form-control">
+                                            <select name="padre_nivel_educativo" class="form-select">
+                                                <option value="">Seleccione...</option>
+                                                <option value="Ninguno">Ninguno</option>
+                                                <option value="Primaria">Primaria</option>
+                                                <option value="Bachiller">Bachiller</option>
+                                                <option value="Técnico">Técnico</option>
+                                                <option value="Tecnólogo">Tecnólogo</option>
+                                                <option value="Profesional">Profesional</option>
+                                                <option value="Especialista">Especialista</option>
+                                                <option value="Doctorado">Doctorado</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label small fw-bold">Email</label>
                                             <input type="email" name="padre_email" class="form-control">
                                         </div>
-                                        <div class="col-12">
-                                            <label class="form-label small fw-bold">Dirección / Barrio</label>
-                                            <input type="text" name="padre_direccion" class="form-control" placeholder="Dirección completa y barrio">
+                                        <div class="col-md-8">
+                                            <label class="form-label small fw-bold">Dirección</label>
+                                            <input type="text" name="padre_direccion" class="form-control" placeholder="Dirección residencia">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label small fw-bold">Barrio</label>
+                                            <input type="text" name="padre_barrio" class="form-control" placeholder="Barrio">
                                         </div>
                                         <div class="col-12">
                                             <div class="form-check">
@@ -296,15 +311,30 @@ ob_start();
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label small fw-bold">Nivel Educativo</label>
-                                            <input type="text" name="madre_nivel_educativo" class="form-control">
+                                            <select name="madre_nivel_educativo" class="form-select">
+                                                <option value="">Seleccione...</option>
+                                                <option value="Ninguno">Ninguno</option>
+                                                <option value="Primaria">Primaria</option>
+                                                <option value="Bachiller">Bachiller</option>
+                                                <option value="Técnico">Técnico</option>
+                                                <option value="Tecnólogo">Tecnólogo</option>
+                                                <option value="Profesional">Profesional</option>
+                                                <option value="Especialista">Especialista</option>
+                                                <option value="Doctorado">Doctorado</option>
+                                                <option value="Otro">Otro</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="form-label small fw-bold">Email</label>
                                             <input type="email" name="madre_email" class="form-control">
                                         </div>
-                                        <div class="col-12">
-                                            <label class="form-label small fw-bold">Dirección / Barrio</label>
-                                            <input type="text" name="madre_direccion" class="form-control" placeholder="Dirección completa y barrio">
+                                        <div class="col-md-8">
+                                            <label class="form-label small fw-bold">Dirección</label>
+                                            <input type="text" name="madre_direccion" class="form-control" placeholder="Dirección residencia">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label small fw-bold">Barrio</label>
+                                            <input type="text" name="madre_barrio" class="form-control" placeholder="Barrio">
                                         </div>
                                         <div class="col-12">
                                             <div class="form-check">

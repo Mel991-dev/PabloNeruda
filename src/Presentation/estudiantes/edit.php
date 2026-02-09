@@ -186,8 +186,8 @@ $primerAntecedente = $antecedentes[0] ?? null;
                         <div class="tab-pane fade" id="edit-familia" role="tabpanel">
                             <div class="row">
                                 <div class="col-md-6 border-end">
-                                    <h6 class="text-primary border-bottom pb-2 mb-3">Padre</h6>
                                     <div class="row g-3">
+                                        <input type="hidden" name="padre_id" value="<?php echo $padre ? $padre->getId() : ''; ?>">
                                         <div class="col-md-6">
                                             <label class="form-label small fw-bold">Nombres</label>
                                             <input type="text" name="padre_nombre" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getNombre()) : ''; ?>">
@@ -197,6 +197,25 @@ $primerAntecedente = $antecedentes[0] ?? null;
                                             <input type="text" name="padre_apellido" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getApellido()) : ''; ?>">
                                         </div>
                                         <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Tipo Doc.</label>
+                                            <select name="padre_tipo_doc" class="form-select">
+                                                <option value="CC" <?php echo ($padre && $padre->getTipoDocumento() === 'CC') ? 'selected' : ''; ?>>CC</option>
+                                                <option value="CE" <?php echo ($padre && $padre->getTipoDocumento() === 'CE') ? 'selected' : ''; ?>>CE</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Identificación</label>
+                                            <input type="text" name="padre_num_doc" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getNumeroDocumento() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Teléfono</label>
+                                            <input type="text" name="padre_tel" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getTelefono() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Email</label>
+                                            <input type="email" name="padre_email" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getEmail() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-md-6">
                                             <label class="form-label small fw-bold">Ocupación</label>
                                             <input type="text" name="padre_ocupacion" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getOcupacion() ?? '') : ''; ?>">
                                         </div>
@@ -204,17 +223,26 @@ $primerAntecedente = $antecedentes[0] ?? null;
                                             <label class="form-label small fw-bold">Empresa / Trabajo</label>
                                             <input type="text" name="padre_empresa" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getEmpresa() ?? '') : ''; ?>">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <label class="form-label small fw-bold">Nivel Educativo</label>
-                                            <input type="text" name="padre_nivel_educativo" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getNivelEducativo() ?? '') : ''; ?>">
+                                            <select name="padre_nivel_educativo" class="form-select">
+                                                <option value="">Seleccione...</option>
+                                                <?php 
+                                                $niveles = ['Ninguno', 'Primaria', 'Bachiller', 'Técnico', 'Tecnólogo', 'Profesional', 'Especialista', 'Doctorado', 'Otro'];
+                                                foreach($niveles as $nivel): 
+                                                    $selected = ($padre && $padre->getNivelEducativo() === $nivel) ? 'selected' : '';
+                                                ?>
+                                                    <option value="<?php echo $nivel; ?>" <?php echo $selected; ?>><?php echo $nivel; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label small fw-bold">Email</label>
-                                            <input type="email" name="padre_email" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getEmail() ?? '') : ''; ?>">
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="form-label small fw-bold">Dirección / Barrio</label>
+                                        <div class="col-md-8">
+                                            <label class="form-label small fw-bold">Dirección</label>
                                             <input type="text" name="padre_direccion" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getDireccion() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label small fw-bold">Barrio</label>
+                                            <input type="text" name="padre_barrio" class="form-control" value="<?php echo $padre ? htmlspecialchars($padre->getBarrio() ?? '') : ''; ?>">
                                         </div>
                                         <div class="col-12">
                                             <div class="form-check">
@@ -227,6 +255,7 @@ $primerAntecedente = $antecedentes[0] ?? null;
                                 <div class="col-md-6">
                                     <h6 class="text-primary border-bottom pb-2 mb-3">Madre</h6>
                                     <div class="row g-3">
+                                        <input type="hidden" name="madre_id" value="<?php echo $madre ? $madre->getId() : ''; ?>">
                                         <div class="col-md-6">
                                             <label class="form-label small fw-bold">Nombres</label>
                                             <input type="text" name="madre_nombre" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getNombre()) : ''; ?>">
@@ -236,6 +265,25 @@ $primerAntecedente = $antecedentes[0] ?? null;
                                             <input type="text" name="madre_apellido" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getApellido()) : ''; ?>">
                                         </div>
                                         <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Tipo Doc.</label>
+                                            <select name="madre_tipo_doc" class="form-select">
+                                                <option value="CC" <?php echo ($madre && $madre->getTipoDocumento() === 'CC') ? 'selected' : ''; ?>>CC</option>
+                                                <option value="CE" <?php echo ($madre && $madre->getTipoDocumento() === 'CE') ? 'selected' : ''; ?>>CE</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Identificación</label>
+                                            <input type="text" name="madre_num_doc" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getNumeroDocumento() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Teléfono</label>
+                                            <input type="text" name="madre_tel" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getTelefono() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label small fw-bold">Email</label>
+                                            <input type="email" name="madre_email" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getEmail() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-md-6">
                                             <label class="form-label small fw-bold">Ocupación</label>
                                             <input type="text" name="madre_ocupacion" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getOcupacion() ?? '') : ''; ?>">
                                         </div>
@@ -243,17 +291,25 @@ $primerAntecedente = $antecedentes[0] ?? null;
                                             <label class="form-label small fw-bold">Empresa / Trabajo</label>
                                             <input type="text" name="madre_empresa" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getEmpresa() ?? '') : ''; ?>">
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <label class="form-label small fw-bold">Nivel Educativo</label>
-                                            <input type="text" name="madre_nivel_educativo" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getNivelEducativo() ?? '') : ''; ?>">
+                                            <select name="madre_nivel_educativo" class="form-select">
+                                                <option value="">Seleccione...</option>
+                                                <?php 
+                                                foreach($niveles as $nivel): 
+                                                    $selected = ($madre && $madre->getNivelEducativo() === $nivel) ? 'selected' : '';
+                                                ?>
+                                                    <option value="<?php echo $nivel; ?>" <?php echo $selected; ?>><?php echo $nivel; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label small fw-bold">Email</label>
-                                            <input type="email" name="madre_email" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getEmail() ?? '') : ''; ?>">
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="form-label small fw-bold">Dirección / Barrio</label>
+                                        <div class="col-md-8">
+                                            <label class="form-label small fw-bold">Dirección</label>
                                             <input type="text" name="madre_direccion" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getDireccion() ?? '') : ''; ?>">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label small fw-bold">Barrio</label>
+                                            <input type="text" name="madre_barrio" class="form-control" value="<?php echo $madre ? htmlspecialchars($madre->getBarrio() ?? '') : ''; ?>">
                                         </div>
                                         <div class="col-12">
                                             <div class="form-check">

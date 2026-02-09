@@ -119,6 +119,7 @@ class EstudianteController
                     'telefono' => $request->input('padre_tel'),
                     'email' => $request->input('padre_email'),
                     'direccion' => $request->input('padre_direccion'),
+                    'barrio' => $request->input('padre_barrio'),
                     'nivel_educativo' => $request->input('padre_nivel_educativo'),
                     'vive_con_estudiante' => $request->input('padre_vive') === '1'
                 ];
@@ -135,6 +136,7 @@ class EstudianteController
                     'telefono' => $request->input('madre_tel'),
                     'email' => $request->input('madre_email'),
                     'direccion' => $request->input('madre_direccion'),
+                    'barrio' => $request->input('madre_barrio'),
                     'nivel_educativo' => $request->input('madre_nivel_educativo'),
                     'vive_con_estudiante' => $request->input('madre_vive') === '1'
                 ];
@@ -307,6 +309,7 @@ class EstudianteController
             // Padres
             if ($request->input('padre_nombre')) {
                 $datosEstudiante['padre'] = [
+                    'id_familiar' => $request->input('padre_id'),
                     'nombre' => $request->input('padre_nombre'),
                     'apellido' => $request->input('padre_apellido'),
                     'tipo_documento' => $request->input('padre_tipo_doc'),
@@ -316,6 +319,7 @@ class EstudianteController
                     'telefono' => $request->input('padre_tel'),
                     'email' => $request->input('padre_email'),
                     'direccion' => $request->input('padre_direccion'),
+                    'barrio' => $request->input('padre_barrio'),
                     'nivel_educativo' => $request->input('padre_nivel_educativo'),
                     'vive_con_estudiante' => $request->input('padre_vive') === '1'
                 ];
@@ -323,6 +327,7 @@ class EstudianteController
 
             if ($request->input('madre_nombre')) {
                 $datosEstudiante['madre'] = [
+                    'id_familiar' => $request->input('madre_id'),
                     'nombre' => $request->input('madre_nombre'),
                     'apellido' => $request->input('madre_apellido'),
                     'tipo_documento' => $request->input('madre_tipo_doc'),
@@ -332,6 +337,7 @@ class EstudianteController
                     'telefono' => $request->input('madre_tel'),
                     'email' => $request->input('madre_email'),
                     'direccion' => $request->input('madre_direccion'),
+                    'barrio' => $request->input('madre_barrio'),
                     'nivel_educativo' => $request->input('madre_nivel_educativo'),
                     'vive_con_estudiante' => $request->input('madre_vive') === '1'
                 ];

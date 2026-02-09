@@ -333,7 +333,14 @@ class EstudianteService
 
         $familiar = \App\Domain\Entities\Familiar::fromArray($datos);
         
-        // Buscar por documento si tiene
+        // 1. Priorizar actualización por ID si viene en el array (útil en edición)
+        if (!empty($datos['id_familiar'])) {
+            $familiar->setId((int)$datos['id_familiar']);
+            $this->familiarRepo->update($familiar);
+            return $familiar->getId();
+        }
+
+        // 2. Si no hay ID, buscar por documento para evitar duplicados
         if ($familiar->getNumeroDocumento()) {
             $existente = $this->familiarRepo->findByDocumento($familiar->getNumeroDocumento());
             if ($existente) {
@@ -343,6 +350,7 @@ class EstudianteService
             }
         }
 
+        // 3. Si no existe ID ni documento coincidente, crear nuevo
         return $this->familiarRepo->save($familiar);
     }
 }
