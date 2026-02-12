@@ -1,175 +1,82 @@
 # Sistema de Gestión Académica - Escuela Pablo Neruda
 
 ## Descripción
-Sistema web para la gestión académica de la Escuela Primaria Pablo Neruda. Permite registrar estudiantes, acudientes, notas, y generar reportes académicos.
+Sistema web integral para la gestión académica, administrativa y de orientación escolar de la Escuela Primaria Pablo Neruda. Diseñado para optimizar procesos como matrículas, calificaciones, seguimiento psicosocial y generación de reportes, facilitando la toma de decisiones basada en datos.
 
 ## Tecnologías
-- **Frontend**: HTML5, CSS3 (Bootstrap 5), JavaScript Vanilla
-- **Backend**: PHP 8+ Nativo (sin frameworks)
+- **Frontend**: HTML5, CSS3 (Bootstrap 5, Chart.js), JavaScript Vanilla
+- **Backend**: PHP 8+ Nativo (Arquitectura MVC, Principios SOLID)
 - **Base de Datos**: MySQL 8.0
 - **Servidor**: Apache (WAMP/XAMPP)
-- **Arquitectura**: MVC con principios SOLID
+- **Seguridad**: Hash de contraseñas (bcrypt), protección contra SQL Injection y XSS.
 
-## Requisitos del Sistema
-- PHP >= 8.0
-- MySQL >= 8.0
-- Apache con mod_rewrite habilitado
-- Extensiones PHP: PDO, pdo_mysql, mbstring
+## Instalación y Configuración
 
-## Instalación
+1. **Clonar el Repositorio**:
+   ```bash
+   git clone https://github.com/Mel991-dev/PabloNeruda.git
+   ```
 
-### 1. Clonar/Descargar el proyecto
-```bash
-cd c:\wamp64\www
-# El proyecto debería estar en: c:\wamp64\www\pablo_neruda
-```
+2. **Base de Datos**:
+   - Importar el script `database/bd_escuela_pablo_neruda.sql` en MySQL.
+   - Configurar credenciales en `.env` (copiar de `.env.example`).
 
-### 2. Configurar Base de Datos
-```bash
-# Crear la base de datos
-mysql -u root -p < database/bd_escuela_pablo_neruda.sql
-```
+3. **Servidor Web**:
+   - Apuntar el `DocumentRoot` de Apache a la carpeta `public/`.
+   - Asegurar que `mod_rewrite` esté habilitado.
 
-### 3. Configurar Variables de Entorno
-```bash
-# Renombrar .env.example a .env
-copy .env.example .env
+## Módulos y Funcionalidades Principales
 
-# Editar .env con tus credenciales de base de datos
-DB_HOST=localhost
-DB_NAME=escuela_pablo_neruda
-DB_USER=root
-DB_PASS=tu_password
-```
+### 1. Dashboard & Analítica Avanzada
+Un panel de control centralizado con visualización de datos en tiempo real:
+- **Indicadores Clave (KPIs)**: Total de estudiantes, profesores, cursos y usuarios activos.
+- **Gráficos de Rendimiento**:
+    - *Barras*: Top 5 materias con mayor tasa de reprobación.
+    - *Circular*: Distribución global del rendimiento (Superior, Alto, Básico, Bajo).
 
-### 4. Configurar Apache
-Asegúrate de que mod_rewrite esté habilitado y que el `DocumentRoot` apunte a la carpeta `public`:
+### 2. Gestión Académica (Estudiantes y Matrículas)
+- **Hoja de Vida Estudiantil**: Datos personales completos, información médica (alergias), y antecedentes.
+- **Núcleo Familiar**: Gestión detallada de padres y acudientes, incluyendo nivel educativo, ocupación y contacto.
+- **Matrículas**: Asignación de estudiantes a cursos y años lectivos.
 
-```
-http://localhost/pablo_neruda/public
-```
+### 3. Calificaciones y Boletines
+- **Registro de Notas**: Sistema de 5 notas parciales por periodo con cálculo automático de promedios.
+- **Boletines Inteligentes**: 
+    - Generación de boletines por periodo (1-4).
+    - Visualización de **todas las materias** del plan de estudios (incluso sin notas registradas).
+    - Modal de selección de periodo intuitivo.
 
-### 5. Permisos de Carpetas (Linux/Mac)
-```bash
-chmod -R 755 logs
-chmod -R 755 backups
-chmod -R 755 public/uploads
-```
+### 4. Módulo de Orientación Escolar
+Herramienta especializada para el seguimiento psicosocial:
+- **Citaciones**: Agendamiento y control de citas con padres/acudientes.
+- **Seguimiento de Casos**: Registro detallado de sesiones, observaciones y compromisos.
+- **Alertas Tempranas**: Identificación de estudiantes en riesgo académico o convivencial.
 
-## Acceso al Sistema
-
-### URL
-```
-http://localhost/pablo_neruda/public/login
-```
-
-### Credenciales por Defecto
-- **Usuario**: admin
-- **Contraseña**: admin123
-- **Rol**: Administrador
+### 5. Administración del Sistema (Roles y Permisos)
+- **Administrador**: Control total, gestión de usuarios, cursos y materias.
+- **Rector**: Visión gerencial, reportes institucionales y monitoreo de desempeño.
+- **Coordinador**: Gestión operativa de matrículas y convivencia.
+- **Profesor**: Registro de notas y consulta de listados de clase.
+- **Orientador**: Gestión exclusiva del módulo de orientación.
 
 ## Estructura del Proyecto
-
 ```
 pablo_neruda/
-├── config/              # Configuración
+├── config/              # Configuración global y de BD
 ├── src/
-│   ├── Core/            # Núcleo del framework
-│   ├── Domain/          # Entidades y lógica de negocio
-│   ├── Infrastructure/  # Implementaciones (Repositorios, Seguridad)
-│   ├── Application/     # Controladores y Middleware
-│   └── Presentation/    # Vistas
-├── public/              # Directorio web público
-│   ├── index.php        # Front controller
-│   └── assets/          # CSS, JS, imágenes
-├── database/            # Scripts SQL
-├── logs/                # Logs del sistema
-└── backups/             # Respaldos automáticos
+│   ├── Application/     # Controladores (Lógica de entrada)
+│   ├── Domain/          # Entidades y Servicios (Lógica de negocio)
+│   ├── Infrastructure/  # Repositorios (Acceso a datos)
+│   └── Presentation/    # Vistas (HTML/PHP, Assets)
+├── public/              # Punto de entrada (index.php) y recursos estáticos
+├── database/            # Scripts SQL y documentación de esquema
+└── logs/                # Registros de errores y actividad
 ```
 
-## Funcionalidades Principales
-
-### 1. Autenticación
-- Login con roles (Administrador, Rector, Coordinador, Profesor)
-- Control de acceso basado en roles
-- Gestión de sesiones con timeout
-
-### 2. Gestión de Estudiantes
-- Registro de estudiantes con datos personales y médicos
-- Vinculación con acudientes
-- Alertas de alergias
-- CRUD completo
-
-### 3. Gestión de Notas
-- Registro de 5 notas por período
-- Cálculo automático de promedios
-- Determinación de | Aprobado/Reprobado
-- Edición de notas
-
-### 4. Reportes
-- Reporte individual de estudiante
-- Reporte por curso
-- Reportes institucionales
-
-### 5. Gestión de Usuarios
-- Crear usuarios por rol
-- Asignar profesores a materias y cursos
-- Gestión de cursos y materias
-
-## Roles del Sistema
-
-### Administrador
-- Gestión completa de usuarios
-- Configuración de cursos y materias
-- Acceso total al sistema
-
-### Rector
-- Visualización de toda la información
-- Generación de reportes institucionales
-- Sin edición de notas
-
-### Coordinador
-- Gestión de estudiantes y acudientes
-- Matrículas de estudiantes
-- Visualización de notas
-- Reportes académicos
-
-### Profesor
-- Registro y edición de notas de sus materias
-- Visualización de estudiantes asignados
-- Reportes de sus materias
-
-## Seguridad
-
-- **Contraseñas**: Hash con bcrypt (cost 12)
-- **SQL Injection**: Prevención con preparados PDO
-- **XSS**: Sanitización con htmlspecialchars
-- **CSRF**: Tokens en formularios
-- **Sesiones**: Timeout automático (30 min)
-
-## Mantenimiento
-
-### Respaldos de Base de Datos
-```bash
-# Backup manual
-mysqldump -u root -p escuela_pablo_neruda > backups/backup_$(date +%Y%m%d).sql
-```
-
-### Logs
-Los logs del sistema se almacenan en:
-- `logs/app.log` - Log general de la aplicación
-- `logs/database_errors.log` - Errores de conexión a BD
-
-## Soporte
-
-Para problemas o preguntas:
-- Revisar la documentación técnica en `database/sistema_escuela_pablo_neruda.md`
-- Verificar logs en carpeta `logs/`
-
-## Licencia
-Sistema desarrollado para la Escuela Pablo Neruda - Barrio Las Malvinas, Sector 4 Berlín
+## Soporte y Mantenimiento
+- **Logs**: Revisar `logs/app.log` para depuración.
+- **Backups**: Scripts de respaldo disponibles en `backups/`.
 
 ---
-
-**Versión**: 1.0.0  
-**Fecha**: Enero 2026
+**Versión**: 1.2.0 (Febrero 2026)
+**Desarrollado para**: Escuela Pablo Neruda - Barrio Las Malvinas.
