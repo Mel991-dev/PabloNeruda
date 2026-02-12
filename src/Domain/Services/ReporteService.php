@@ -44,16 +44,22 @@ class ReporteService
         // Calcular promedios generales
         $sumaPromedios = 0;
         $totalMaterias = count($notas);
+        $materiasCalificadas = 0;
         $materiasReprobadas = 0;
 
         foreach ($notas as $nota) {
-            $sumaPromedios += $nota['promedio'];
-            if ($nota['promedio'] < 3.0) {
-                $materiasReprobadas++;
+            // Solo imprimir promedio si existe nota
+            if (isset($nota['promedio']) && $nota['promedio'] !== null) {
+                $sumaPromedios += $nota['promedio'];
+                $materiasCalificadas++;
+                
+                if ($nota['promedio'] < 3.0) {
+                    $materiasReprobadas++;
+                }
             }
         }
 
-        $promedioGeneral = $totalMaterias > 0 ? ($sumaPromedios / $totalMaterias) : 0;
+        $promedioGeneral = $materiasCalificadas > 0 ? ($sumaPromedios / $materiasCalificadas) : 0;
 
         return [
             'estudiante' => $estudiante,
@@ -63,7 +69,7 @@ class ReporteService
             'estadisticas' => [
                 'promedio_general' => round($promedioGeneral, 2),
                 'materias_reprobadas' => $materiasReprobadas,
-                'total_materias' => $totalMaterias,
+                'total_materias' => $totalMaterias, // Total materias del grado
                 'puesto' => 'N/A' // Pendiente cálculo de puesto
             ]
         ];

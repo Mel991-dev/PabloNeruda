@@ -31,12 +31,12 @@ class MySQLNotaRepository implements NotaRepositoryInterface
 
     public function findByEstudianteAndPeriodo(int $estudianteId, int $periodo): array
     {
-        // Buscar matrícula activa del estudiante
-        // OJO: Alias para compatibilidad con ReporteService y Vistas
+        // Modificación: Traer TODAS las materias del grado, con o sin notas
         $sql = "SELECT 
+                    m.id_materia,
+                    m.nombre as materia_nombre,
                     n.id_nota,
                     n.fk_matricula,
-                    n.fk_materia,
                     n.fk_profesor,
                     n.periodo,
                     n.nota_1 as nota1,
@@ -47,19 +47,20 @@ class MySQLNotaRepository implements NotaRepositoryInterface
                     n.promedio_periodo as promedio,
                     n.estado,
                     n.observaciones,
-                    n.fecha_registro,
-                    m.nombre as materia_nombre 
-                FROM notas n
-                INNER JOIN matriculas mat ON n.fk_matricula = mat.id_matricula
-                INNER JOIN materias m ON n.fk_materia = m.id_materia
+                    n.fecha_registro
+                FROM matriculas mat
+                INNER JOIN cursos c ON mat.fk_curso = c.id_curso
+                INNER JOIN materias m ON (m.grado_aplicable = c.grado OR m.grado_aplicable = 'Todos')
+                LEFT JOIN notas n ON n.fk_materia = m.id_materia 
+                                  AND n.fk_matricula = mat.id_matricula 
+                                  AND n.periodo = :periodo
                 WHERE mat.fk_estudiante = :est_id 
                 AND mat.estado = 'Activo'
-                AND n.periodo = :periodo";
+                ORDER BY m.nombre";
                 
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['est_id' => $estudianteId, 'periodo' => $periodo]);
         
-        // Retornamos array con datos extra (nombre materia)
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     

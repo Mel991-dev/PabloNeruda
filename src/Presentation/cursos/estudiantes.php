@@ -77,10 +77,15 @@ ob_start();
                                            class="btn btn-sm btn-outline-primary" title="Ver Perfil">
                                             <i class="bi bi-eye"></i>
                                         </a>
-                                        <a href="<?php echo APP_URL; ?>/reportes/boletin?estudiante_id=<?php echo $est->getIdEstudiante(); ?>&periodo=1" 
-                                           class="btn btn-sm btn-outline-success" title="Ver Notas" target="_blank">
+                                        <button type="button" 
+                                                class="btn btn-sm btn-outline-success" 
+                                                title="Ver Notas"
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#modalPeriodo"
+                                                data-id="<?php echo $est->getIdEstudiante(); ?>"
+                                                data-nombre="<?php echo htmlspecialchars($est->getApellido() . ' ' . $est->getNombre()); ?>">
                                             <i class="bi bi-journal-text"></i>
-                                        </a>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -91,6 +96,54 @@ ob_start();
         </div>
     </div>
 </div>
+
+<!-- Modal Selección de Periodo -->
+<div class="modal fade" id="modalPeriodo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i class="bi bi-journal-check me-2"></i>Seleccionar Periodo
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center p-4">
+                <p class="mb-4 text-muted">Estudiante: <span id="modalEstudianteNombre" class="fw-bold text-dark"></span></p>
+                <div class="row g-3">
+                    <?php for($i=1; $i<=4; $i++): ?>
+                    <div class="col-6">
+                        <a href="#" id="btnPeriodo<?php echo $i; ?>" target="_blank" class="btn btn-outline-primary w-100 py-3 d-flex flex-column align-items-center gap-2 hover-shadow transition-all">
+                            <span class="fs-1 fw-bold"><?php echo $i; ?>°</span>
+                            <span class="small text-uppercase tracking-wider">Periodo</span>
+                        </a>
+                    </div>
+                    <?php endfor; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modalPeriodo = document.getElementById('modalPeriodo');
+    if (modalPeriodo) {
+        modalPeriodo.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const id = button.getAttribute('data-id');
+            const nombre = button.getAttribute('data-nombre');
+            
+            document.getElementById('modalEstudianteNombre').textContent = nombre;
+            
+            // Actualizar enlaces
+            const baseUrl = '<?php echo APP_URL; ?>/reportes/boletin';
+            for(let i=1; i<=4; i++) {
+                document.getElementById('btnPeriodo'+i).href = `${baseUrl}?estudiante_id=${id}&periodo=${i}`;
+            }
+        });
+    }
+});
+</script>
 
 <?php 
 $content = ob_get_clean(); 
