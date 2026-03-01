@@ -83,6 +83,10 @@ $router->get('/cursos/editar', 'CursoController@edit', ['auth', 'role:Administra
 $router->post('/cursos/actualizar', 'CursoController@update', ['auth', 'role:Administrador']);
 $router->get('/cursos/ver', 'CursoController@verEstudiantes', ['auth', 'role:Administrador,Coordinador,Rector,Profesor']);
 
+// Rutas de horarios (Administrador, Coordinador, Rector)
+$router->get('/horarios/ver', 'HorarioController@ver', ['auth', 'role:Administrador,Coordinador,Rector']);
+$router->post('/horarios/guardar', 'HorarioController@guardarBloque', ['auth', 'role:Administrador,Coordinador,Rector']); // API AJAX
+
 // Rutas de orientación
 $router->get('/orientacion', 'OrientacionController@index', ['auth', 'role:Orientador,Coordinador,Rector,Administrador']);
 $router->get('/orientacion/seguimientos', 'OrientacionController@listado', ['auth', 'role:Orientador,Coordinador,Administrador']);

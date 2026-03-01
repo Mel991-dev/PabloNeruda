@@ -55,6 +55,9 @@ ob_start();
                         </div>
                         <div class="card-footer bg-white border-top-0 pb-3">
                             <div class="d-grid gap-2">
+                                <a href="<?php echo APP_URL; ?>/horarios/ver?curso_id=<?php echo $curso['id_curso']; ?>" class="btn btn-info text-white">
+                                    <i class="bi bi-calendar3"></i> Ver Horario
+                                </a>
                                 <a href="<?php echo APP_URL; ?>/cursos/ver?id=<?php echo $curso['id_curso']; ?>" class="btn btn-outline-primary">
                                     <i class="bi bi-list-ul"></i> Ver Estudiantes
                                 </a>
