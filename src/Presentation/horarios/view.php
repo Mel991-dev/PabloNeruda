@@ -67,9 +67,39 @@ ob_start();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php for ($b = 1; $b <= 6; $b++): ?>
+                    <?php 
+                    // Definir los horarios reales para cada bloque según la jornada
+                    $horariosReales = [
+                        'Mañana' => [
+                            1 => '6:00 AM - 7:00 AM',
+                            2 => '7:00 AM - 8:00 AM',
+                            // Recreo 8:00 AM - 8:30 AM
+                            3 => '8:30 AM - 9:30 AM',
+                            4 => '9:30 AM - 10:30 AM',
+                            5 => '10:30 AM - 11:30 AM',
+                            6 => '11:30 AM - 12:30 PM'
+                        ],
+                        'Tarde' => [
+                            1 => '12:30 PM - 1:30 PM',
+                            2 => '1:30 PM - 2:30 PM',
+                            // Recreo 2:30 PM - 3:00 PM
+                            3 => '3:00 PM - 4:00 PM',
+                            4 => '4:00 PM - 5:00 PM',
+                            5 => '5:00 PM - 6:00 PM',
+                            6 => '6:00 PM - 7:00 PM'
+                        ]
+                    ];
+                    $jornada = $curso['jornada'] ?? 'Mañana';
+                    // Si por alguna razón la jornada no es Mañana o Tarde, usar Mañana por defecto
+                    $tiempos = isset($horariosReales[$jornada]) ? $horariosReales[$jornada] : $horariosReales['Mañana'];
+
+                    for ($b = 1; $b <= 6; $b++): 
+                    ?>
                         <tr>
-                            <td class="fw-bold bg-light">Bloque <?php echo $b; ?></td>
+                            <td class="fw-bold bg-light">
+                                <span class="d-block text-primary">Bloque <?php echo $b; ?></span>
+                                <small class="text-muted" style="font-size: 0.8em;"><?php echo $tiempos[$b]; ?></small>
+                            </td>
                             <?php foreach ($horario as $dia => $bloques): 
                                 $celda = $bloques[$b]; 
                                 $materiaAsignada = $celda ? $celda['fk_materia'] : '';
@@ -102,9 +132,15 @@ ob_start();
                                 </td>
                             <?php endforeach; ?>
                         </tr>
-                        <?php if ($b == 3 && $curso['jornada'] == 'Mañana'): ?>
+                        <?php 
+                        // El recreo es después del bloque 2
+                        if ($b == 2): 
+                            $textoRecreo = ($jornada == 'Mañana') ? '8:00 AM - 8:30 AM' : '2:30 PM - 3:00 PM';
+                        ?>
                             <tr class="table-active">
-                                <td colspan="6" class="text-center fw-bold text-muted py-2"><i class="bi bi-cup-hot me-2"></i>DESCANSO (RECREO)</td>
+                                <td colspan="6" class="text-center fw-bold text-muted py-2">
+                                    <i class="bi bi-cup-hot me-2"></i>DESCANSO (RECREO) <span class="badge bg-secondary ms-2"><?php echo $textoRecreo; ?></span>
+                                </td>
                             </tr>
                         <?php endif; ?>
                     <?php endfor; ?>
