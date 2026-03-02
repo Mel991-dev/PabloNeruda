@@ -48,7 +48,11 @@ ob_start();
         <i class="bi bi-exclamation-triangle-fill fs-3 text-warning me-3"></i>
         <div>
             <h5 class="alert-heading mb-1 fw-bold">Horario no configurado</h5>
-            <p class="mb-0">Aún no se han asignado materias a la programación semanal de este curso. Utiliza la cuadrícula inferior para comenzar a estructurar el horario escolar.</p>
+            <?php if ($canEdit): ?>
+                <p class="mb-0">Aún no se han asignado materias a la programación semanal de este curso. Utiliza la cuadrícula inferior para comenzar a estructurar el horario escolar.</p>
+            <?php else: ?>
+                <p class="mb-0">Aún no se han asignado materias a la programación semanal de este curso. Solo el director de grupo y personal administrativo pueden configurar este horario.</p>
+            <?php endif; ?>
         </div>
     </div>
 </div>
@@ -108,7 +112,7 @@ ob_start();
                                 <td class="p-2 schedule-cell" data-dia="<?php echo $dia; ?>" data-bloque="<?php echo $b; ?>">
                                     <!-- Vista Lectura / Edición Rápida -->
                                     <div class="cell-content">
-                                        <select class="form-select form-select-sm mb-1 materia-select shadow-sm border-info" data-dia="<?php echo $dia; ?>" data-bloque="<?php echo $b; ?>">
+                                        <select class="form-select form-select-sm mb-1 materia-select shadow-sm border-info" data-dia="<?php echo $dia; ?>" data-bloque="<?php echo $b; ?>" <?php echo !$canEdit ? 'disabled' : ''; ?>>
                                             <option value="">-- Asignatura --</option>
                                             <?php foreach ($materias as $m): ?>
                                                 <option value="<?php echo $m['id_materia']; ?>" <?php echo ($materiaAsignada == $m['id_materia']) ? 'selected' : ''; ?>>
@@ -117,7 +121,7 @@ ob_start();
                                             <?php endforeach; ?>
                                         </select>
                                         
-                                        <select class="form-select form-select-sm profesor-select text-muted" data-dia="<?php echo $dia; ?>" data-bloque="<?php echo $b; ?>">
+                                        <select class="form-select form-select-sm profesor-select text-muted" data-dia="<?php echo $dia; ?>" data-bloque="<?php echo $b; ?>" <?php echo !$canEdit ? 'disabled' : ''; ?>>
                                             <option value="">-- Docente --</option>
                                             <?php foreach ($profesores as $p): ?>
                                                 <option value="<?php echo $p['id_profesor']; ?>" <?php echo ($profesorAsignado == $p['id_profesor'] || (!$profesorAsignado && $p['id_profesor'] == $curso['director_grupo'])) ? 'selected' : ''; ?>>

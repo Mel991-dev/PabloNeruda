@@ -42,11 +42,20 @@ class HorarioController
         $materias = $this->horarioService->obtenerMateriasPorCurso($curso['grado']);
         $profesores = $this->horarioService->obtenerProfesores();
 
+        $userRole = Session::get('rol');
+        $fkProfesor = Session::get('fk_profesor');
+        
+        $canEdit = in_array($userRole, ['Administrador', 'Coordinador', 'Rector']);
+        if ($userRole === 'Profesor' && $fkProfesor == $curso['director_grupo']) {
+            $canEdit = true;
+        }
+
         Response::view('horarios.view', [
             'curso' => $curso,
             'horario' => $horario,
             'materias' => $materias,
-            'profesores' => $profesores
+            'profesores' => $profesores,
+            'canEdit' => $canEdit
         ]);
     }
 
@@ -68,6 +77,27 @@ class HorarioController
         if (!$cursoId || !$dia || !$bloque) {
             header('Content-Type: application/json');
             echo json_encode(['success' => false, 'message' => 'Datos incompletos']);
+            return;
+        }
+
+        $curso = $this->cursoRepo->findById($cursoId);
+        if (!$curso) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'Curso no encontrado']);
+            return;
+        }
+
+        $userRole = Session::get('rol');
+        $fkProfesor = Session::get('fk_profesor');
+        
+        $canEdit = in_array($userRole, ['Administrador', 'Coordinador', 'Rector']);
+        if ($userRole === 'Profesor' && $fkProfesor == $curso['director_grupo']) {
+            $canEdit = true;
+        }
+
+        if (!$canEdit) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'No tienes permisos para modificar este horario']);
             return;
         }
 

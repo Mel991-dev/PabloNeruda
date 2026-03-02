@@ -17,6 +17,9 @@ $rol = Session::get('rol', '');
             <i class="bi bi-people"></i> <span class="nav-text">Usuarios</span>
         </a>
     </li>
+    <?php endif; ?>
+
+    <?php if (in_array($rol, ['Administrador', 'Coordinador', 'Rector', 'Profesor'])): ?>
     <li class="nav-item">
         <a class="nav-link" href="<?php echo APP_URL; ?>/cursos">
             <i class="bi bi-book"></i> <span class="nav-text">Cursos</span>
