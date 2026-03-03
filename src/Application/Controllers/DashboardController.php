@@ -5,6 +5,7 @@ namespace App\Application\Controllers;
 use App\Core\{Request, Response, Session};
 use App\Domain\Services\AuthService;
 use App\Domain\Services\DashboardService;
+use App\Domain\Services\AuditService;
 use App\Infrastructure\Repositories\MySQLUsuarioRepository;
 
 /**
@@ -41,7 +42,20 @@ class DashboardController
         switch ($rol) {
             case 'Administrador':
                 $dashboardService = new DashboardService();
+                $auditService = new AuditService();
                 $data['stats'] = $dashboardService->obtenerEstadisticasAdmin();
+                
+                // Obtener filtros para la auditoría (si los hay)
+                $request = new Request();
+                $filtros = [
+                    'accion' => $request->query('accion'),
+                    'rol' => $request->query('rol'),
+                    'orden' => $request->query('orden')
+                ];
+                
+                $data['logs'] = $auditService->obtenerActividadReciente($filtros, 10);
+                $data['filtros_actuales'] = $filtros;
+
                 Response::view('dashboard.administrador', $data);
                 break;
             case 'Rector':

@@ -4,6 +4,7 @@ namespace App\Application\Controllers;
 
 use App\Core\{Request, Response, Session};
 use App\Domain\Services\AuthService;
+use App\Domain\Services\AuditService;
 use App\Infrastructure\Repositories\MySQLUsuarioRepository;
 
 /**
@@ -56,15 +57,37 @@ class AuthController
             return;
         }
 
+        // Registrar Login en Auditoría
+        $auditService = new AuditService();
+        $auditService->registrar(
+            $result['usuario']->getIdUsuario(),
+            $result['usuario']->getRol(),
+            'LOGIN',
+            'Autenticación',
+            'Inicio de sesión exitoso desde IP ' . ($_SERVER['REMOTE_ADDR'] ?? 'Desconocida')
+        );
+
         Session::flash('success', '¡Bienvenido, ' . $result['usuario']->getUsername() . '!');
         Response::redirect(APP_URL . '/dashboard');
     }
 
-    /**
-     * Cerrar sesión
-     */
     public function logout(): void
     {
+        // Registrar Logout antes de destruir la sesión
+        $userId = Session::get('user_id');
+        $userRole = Session::get('rol');
+
+        if ($userId && $userRole) {
+            $auditService = new AuditService();
+            $auditService->registrar(
+                $userId,
+                $userRole,
+                'LOGOUT',
+                'Autenticación',
+                'Cierre de sesión manual'
+            );
+        }
+
         $this->authService->logout();
         Session::flash('success', 'Has cerrado sesión exitosamente');
         Response::redirect(APP_URL . '/login');

@@ -8,6 +8,7 @@ use App\Infrastructure\Repositories\MySQLProfesorRepository;
 use App\Domain\Services\ReporteService;
 use App\Infrastructure\Repositories\MySQLNotaRepository;
 use App\Infrastructure\Repositories\MySQLEstudianteRepository;
+use App\Domain\Services\AuditService;
 
 class CursoController
 {
@@ -71,6 +72,16 @@ class CursoController
         ];
 
         $this->cursoRepo->save($curso);
+        
+        // Registrar en Auditoría
+        (new AuditService())->registrar(
+            Session::get('user_id'),
+            Session::get('rol'),
+            'INSERT',
+            'Cursos',
+            "Creado nuevo curso: {$data['grado']} {$data['seccion']} (Jornada: {$data['jornada']})"
+        );
+
         Response::redirect(APP_URL . '/cursos');
     }
 
@@ -115,6 +126,16 @@ class CursoController
         ];
 
         $this->cursoRepo->update($curso);
+        
+        // Registrar en Auditoría
+        (new AuditService())->registrar(
+            Session::get('user_id'),
+            Session::get('rol'),
+            'UPDATE',
+            'Cursos',
+            "Actualizado curso ID {$id}: {$data['grado']} {$data['seccion']}"
+        );
+
         Response::redirect(APP_URL . '/cursos');
     }
     

@@ -5,6 +5,7 @@ namespace App\Application\Controllers;
 use App\Core\{Request, Response, Session};
 use App\Domain\Services\NotaService;
 use App\Infrastructure\Repositories\{MySQLNotaRepository, MySQLCursoRepository, MySQLMateriaRepository};
+use App\Domain\Services\AuditService;
 
 class NotaController
 {
@@ -102,6 +103,19 @@ class NotaController
             }
 
             $this->service->registrarNotas($materiaId, $periodo, $notas, $fkProfesor);
+
+            // Nombre de materia para el log (ya lo teníamos en el método principal, pero aquí no, tocaría buscarlo o guardar directo)
+            $materiaRepo = new MySQLMateriaRepository();
+            $m = $materiaRepo->findById($materiaId);
+            $nombreMateria = $m ? $m['nombre'] : "Materia #$materiaId";
+
+            (new AuditService())->registrar(
+                Session::get('user_id'),
+                Session::get('rol'),
+                'UPDATE',
+                'Notas',
+                "Calificaciones guardadas: {$nombreMateria} (Periodo {$periodo}) - Profesor ID: {$fkProfesor}"
+            );
 
             Session::flash('success', 'Calificaciones guardadas exitosamente.');
             

@@ -4,6 +4,7 @@ namespace App\Application\Controllers;
 use App\Core\{Request, Response, Session};
 use App\Domain\Services\EstudianteService;
 use App\Infrastructure\Repositories\{MySQLEstudianteRepository, MySQLAcudienteRepository, MySQLCursoRepository, MySQLFamiliarRepository};
+use App\Domain\Services\AuditService;
 
 class EstudianteController
 {
@@ -170,6 +171,15 @@ class EstudianteController
             $archivoPdf = $_FILES['documento_pdf'] ?? null;
 
             $this->service->registrarEstudiante($datosEstudiante, $datosAcudiente, $archivoPdf);
+
+            // Registrar en Auditoría
+            (new AuditService())->registrar(
+                Session::get('user_id'),
+                Session::get('rol'),
+                'INSERT',
+                'Estudiantes',
+                "Registrado nuevo estudiante: {$datosEstudiante['nombre']} {$datosEstudiante['apellido']} (Doc: {$datosEstudiante['numero_documento']})"
+            );
 
             Session::flash('success', 'Estudiante registrado correctamente.');
             Response::redirect(APP_URL . '/estudiantes');
@@ -371,6 +381,15 @@ class EstudianteController
             $archivoPdf = $_FILES['documento_pdf'] ?? null;
 
             $this->service->actualizarEstudiante($id, $datosEstudiante, $datosAcudiente, $archivoPdf);
+
+            // Registrar en Auditoría
+            (new AuditService())->registrar(
+                Session::get('user_id'),
+                Session::get('rol'),
+                'UPDATE',
+                'Estudiantes',
+                "Actualizado expediente de estudiante ID {$id} ({$datosEstudiante['nombre']} {$datosEstudiante['apellido']})"
+            );
 
             Session::flash('success', 'Estudiante actualizado correctamente.');
             Response::redirect(APP_URL . '/estudiantes/ver?id=' . $id);

@@ -7,6 +7,7 @@ use App\Domain\Services\AuthService;
 use App\Infrastructure\Repositories\MySQLUsuarioRepository;
 use App\Infrastructure\Repositories\MySQLProfesorRepository;
 use App\Domain\Entities\Usuario;
+use App\Domain\Services\AuditService;
 
 class UsuarioController
 {
@@ -88,6 +89,13 @@ class UsuarioController
         $result = $this->authService->createUser($data);
 
         if ($result['success']) {
+            (new AuditService())->registrar(
+                Session::get('user_id'),
+                Session::get('rol'),
+                'INSERT',
+                'Usuarios',
+                "Creado nuevo usuario: {$data['username']} con rol {$data['rol']}"
+            );
             Session::flash('success', 'Usuario creado exitosamente');
             Response::redirect(APP_URL . '/usuarios');
         } else {
@@ -187,6 +195,13 @@ class UsuarioController
         }
 
         if ($this->usuarioRepo->update($usuario)) {
+            (new AuditService())->registrar(
+                Session::get('user_id'),
+                Session::get('rol'),
+                'UPDATE',
+                'Usuarios',
+                "Actualizado usuario ID {$id} ({$usuario->getUsername()})"
+            );
             Session::flash('success', 'Usuario actualizado correctamente');
             Response::redirect(APP_URL . '/usuarios');
         } else {
@@ -218,6 +233,15 @@ class UsuarioController
             $this->usuarioRepo->update($usuario);
             
             $msg = ($nuevoEstado === 'Inactivo') ? 'Usuario suspendido' : 'Usuario reactivado';
+            
+            (new AuditService())->registrar(
+                Session::get('user_id'),
+                Session::get('rol'),
+                'UPDATE',
+                'Usuarios',
+                "Cambiado estado de usuario {$usuario->getUsername()} a {$nuevoEstado}"
+            );
+
             Session::flash('success', $msg);
         }
 

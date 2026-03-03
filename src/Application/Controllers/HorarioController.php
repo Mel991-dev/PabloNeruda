@@ -5,6 +5,7 @@ namespace App\Application\Controllers;
 use App\Core\{Request, Response, Session, Database};
 use App\Domain\Services\HorarioService;
 use App\Infrastructure\Repositories\MySQLCursoRepository;
+use App\Domain\Services\AuditService;
 
 class HorarioController
 {
@@ -103,6 +104,17 @@ class HorarioController
 
         try {
             $result = $this->horarioService->guardarBloque($cursoId, $dia, $bloque, $materiaId, $profesorId);
+            
+            // Registrar en Auditoría
+            $accionDesc = $materiaId ? "Asignado Bloque {$bloque} ($dia) a Materia #{$materiaId}" : "Liberado Bloque {$bloque} ($dia)";
+            (new AuditService())->registrar(
+                Session::get('user_id'),
+                Session::get('rol'),
+                'UPDATE',
+                'Horarios',
+                "Curso {$curso['grado']} {$curso['seccion']}: {$accionDesc}"
+            );
+
             header('Content-Type: application/json');
             echo json_encode(['success' => $result]);
         } catch (\Exception $e) {

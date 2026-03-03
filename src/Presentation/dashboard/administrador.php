@@ -87,12 +87,91 @@ ob_start();
 
 <div class="row mt-4">
     <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">
-                <i class="bi bi-activity"></i> Actividad Reciente
+        <div class="card h-100">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h6 class="mb-0 fw-bold"><i class="bi bi-activity text-primary me-2"></i> Actividad Reciente del Sistema</h6>
             </div>
-            <div class="card-body">
-                <p class="text-muted">No hay actividad reciente</p>
+            <div class="card-body p-0">
+                <!-- Filtros -->
+                <div class="bg-light p-3 border-bottom">
+                    <form method="GET" action="<?php echo APP_URL; ?>/dashboard" class="row g-2 align-items-center">
+                        <div class="col-auto">
+                            <select name="accion" class="form-select form-select-sm">
+                                <option value="">Todas las acciones</option>
+                                <option value="INSERT" <?php echo ($filtros_actuales['accion'] ?? '') == 'INSERT' ? 'selected' : ''; ?>>Creación (INSERT)</option>
+                                <option value="UPDATE" <?php echo ($filtros_actuales['accion'] ?? '') == 'UPDATE' ? 'selected' : ''; ?>>Edición (UPDATE)</option>
+                                <option value="DELETE" <?php echo ($filtros_actuales['accion'] ?? '') == 'DELETE' ? 'selected' : ''; ?>>Eliminación (DELETE)</option>
+                                <option value="LOGIN" <?php echo ($filtros_actuales['accion'] ?? '') == 'LOGIN' ? 'selected' : ''; ?>>Accesos (LOGIN)</option>
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <select name="rol" class="form-select form-select-sm">
+                                <option value="">Todos los roles</option>
+                                <option value="Administrador" <?php echo ($filtros_actuales['rol'] ?? '') == 'Administrador' ? 'selected' : ''; ?>>Administrador</option>
+                                <option value="Profesor" <?php echo ($filtros_actuales['rol'] ?? '') == 'Profesor' ? 'selected' : ''; ?>>Profesor</option>
+                                <option value="Coordinador" <?php echo ($filtros_actuales['rol'] ?? '') == 'Coordinador' ? 'selected' : ''; ?>>Coordinador</option>
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <select name="orden" class="form-select form-select-sm">
+                                <option value="DESC" <?php echo ($filtros_actuales['orden'] ?? 'DESC') == 'DESC' ? 'selected' : ''; ?>>Más Recientes</option>
+                                <option value="ASC" <?php echo ($filtros_actuales['orden'] ?? '') == 'ASC' ? 'selected' : ''; ?>>Más Antiguos</option>
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-filter"></i> Filtrar</button>
+                            <a href="<?php echo APP_URL; ?>/dashboard" class="btn btn-sm btn-outline-secondary"><i class="bi bi-x-circle"></i> Limpiar</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tabla de Actividad -->
+                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <?php if (empty($logs)): ?>
+                        <div class="p-4 text-center text-muted">
+                            <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+                            No se encontraron registros de auditoría con los parámetros actuales.
+                        </div>
+                    <?php else: ?>
+                        <table class="table table-hover table-sm mb-0">
+                            <thead class="table-light sticky-top">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Usuario</th>
+                                    <th>Acción</th>
+                                    <th>Módulo</th>
+                                    <th>Detalles</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($logs as $log): 
+                                    $badgeClass = 'bg-secondary';
+                                    switch ($log['accion']) {
+                                        case 'INSERT': $badgeClass = 'bg-success'; break;
+                                        case 'UPDATE': $badgeClass = 'bg-warning text-dark'; break;
+                                        case 'DELETE': $badgeClass = 'bg-danger'; break;
+                                        case 'LOGIN':  $badgeClass = 'bg-info text-dark'; break;
+                                    }
+                                    
+                                    $date = new DateTime($log['fecha']);
+                                ?>
+                                    <tr>
+                                        <td class="text-nowrap text-muted small"><?php echo $date->format('d/m/Y H:i'); ?></td>
+                                        <td>
+                                            <span class="fw-bold d-block text-truncate" style="max-width: 150px;" title="<?php echo htmlspecialchars($log['nombre_usuario']); ?>">
+                                                <?php echo htmlspecialchars($log['nombre_usuario']); ?>
+                                            </span>
+                                            <span class="badge bg-light text-dark border"><?php echo $log['rol_usuario']; ?></span>
+                                        </td>
+                                        <td><span class="badge <?php echo $badgeClass; ?>"><?php echo $log['accion']; ?></span></td>
+                                        <td><span class="fw-medium"><?php echo $log['modulo']; ?></span></td>
+                                        <td><small class="text-muted"><?php echo htmlspecialchars($log['detalles']); ?></small></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>
