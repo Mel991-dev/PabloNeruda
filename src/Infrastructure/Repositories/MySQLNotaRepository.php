@@ -76,7 +76,8 @@ class MySQLNotaRepository implements NotaRepositoryInterface
                        n.nota_4 as nota4, 
                        n.nota_5 as nota5, 
                        n.promedio_periodo as promedio, 
-                       n.estado
+                       n.estado,
+                       n.observaciones
                 FROM estudiantes e
                 INNER JOIN matriculas mat ON e.id_estudiante = mat.fk_estudiante
                 LEFT JOIN notas n ON mat.id_matricula = n.fk_matricula AND n.fk_materia = :materia_id AND n.periodo = :periodo

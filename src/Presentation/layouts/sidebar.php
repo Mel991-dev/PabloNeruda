@@ -43,6 +43,14 @@ $rol = Session::get('rol', '');
     </li>
     <?php endif; ?>
 
+    <?php if (in_array($rol, ['Profesor'])): ?>
+    <li class="nav-item">
+        <a class="nav-link" href="<?php echo APP_URL; ?>/horarios/mi-horario">
+            <i class="bi bi-calendar3"></i> <span class="nav-text">Mi Horario</span>
+        </a>
+    </li>
+    <?php endif; ?>
+
     <?php if (in_array($rol, ['Rector', 'Coordinador', 'Administrador'])): ?>
     <li class="nav-item">
         <a class="nav-link" href="<?php echo APP_URL; ?>/reportes">

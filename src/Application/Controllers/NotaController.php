@@ -25,8 +25,10 @@ class NotaController
      */
     public function index(): void
     {
-        $cursos = $this->service->listarCursos();
-        $materias = $this->service->listarMaterias();
+        $fkProfesor = (Session::get('rol') === 'Profesor') ? Session::get('fk_profesor') : null;
+        
+        $cursos = $this->service->listarCursos($fkProfesor);
+        $materias = $this->service->listarMaterias($fkProfesor);
         
         Response::view('notas.index', [
             'cursos' => $cursos,
@@ -49,6 +51,24 @@ class NotaController
             Session::flash('error', 'Debes seleccionar un curso y una materia.');
             Response::redirect(APP_URL . '/notas');
             return;
+        }
+
+        // Validación Adicional de Seguridad para acceso a la vista 'create'
+        if (Session::get('rol') === 'Profesor') {
+            $fkProfesor = Session::get('fk_profesor');
+            $materiasAsignadas = $this->service->listarMaterias($fkProfesor, $cursoId);
+            $tienePermiso = false;
+            foreach ($materiasAsignadas as $ma) {
+                if ((int)$ma->getId() === $materiaId) {
+                    $tienePermiso = true;
+                    break;
+                }
+            }
+            if (!$tienePermiso) {
+                Session::flash('error', 'Seguridad: No tienes permisos para registrar notas en este curso y materia.');
+                Response::redirect(APP_URL . '/notas');
+                return;
+            }
         }
 
         $estudiantes = $this->service->obtenerEstudiantesConNotas($cursoId, $materiaId, $periodo);
@@ -107,7 +127,7 @@ class NotaController
             // Nombre de materia para el log (ya lo teníamos en el método principal, pero aquí no, tocaría buscarlo o guardar directo)
             $materiaRepo = new MySQLMateriaRepository();
             $m = $materiaRepo->findById($materiaId);
-            $nombreMateria = $m ? $m['nombre'] : "Materia #$materiaId";
+            $nombreMateria = $m ? $m->getNombre() : "Materia #$materiaId";
 
             (new AuditService())->registrar(
                 Session::get('user_id'),

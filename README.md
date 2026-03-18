@@ -8,7 +8,7 @@ Sistema web integral para la gestión académica, administrativa y de orientaci�
 - **Backend**: PHP 8+ Nativo (Arquitectura MVC, Principios SOLID)
 - **Base de Datos**: MySQL 8.0
 - **Servidor**: Apache (WAMP/XAMPP)
-- **Seguridad**: Hash de contraseñas (bcrypt), protección contra SQL Injection y XSS.
+- **Seguridad**: Hash de contraseñas (bcrypt), validación de permisos por rol, protección contra Inyección SQL (PDO Statements) y XSS.
 
 ## Instalación y Configuración
 
@@ -50,14 +50,24 @@ Un panel de control centralizado con visualización de datos en tiempo real:
 Herramienta especializada para el seguimiento psicosocial:
 - **Citaciones**: Agendamiento y control de citas con padres/acudientes.
 - **Seguimiento de Casos**: Registro detallado de sesiones, observaciones y compromisos.
-- **Alertas Tempranas**: Identificación de estudiantes en riesgo académico o convivencial.
+- **Motor de Notificaciones**: Alertas tempranas automatizadas (Push) enviadas en tiempo real cuando un estudiante entra en riesgo académico crítico (reprueba 3+ materias).
 
-### 5. Administración del Sistema (Roles y Permisos)
+### 5. Horarios y Cargas Académicas
+- **Administración Académica**: Creación y asignación de la parrilla de clases por bloques y días de la semana, enlazando profesor, curso y materia.
+- **Mi Horario (Portal Docente)**: Cuadrícula interactiva generada dinámicamente donde cada profesor visualiza su carga semanal, asignando colores automáticamente por asignatura.
+- **Mecanismos Anti-Huérfanas**: Filtros de seguridad a nivel backend y frontend que impiden a un profesor alterar calificaciones de asignaturas/cursos que no le pertenecen.
+
+### 6. Auditoría y Trazabilidad (Logs)
+- Monitoreo en tiempo real de los cambios del sistema en una tabla de `log_auditoria`.
+- Registra el `Usuario`, el `Rol`, la `Tabla Afectada` y la `Acción` (CREATE, UPDATE, LOGIN).
+- Visualización interactiva en el Dashboard para el rol Administrador.
+
+### 7. Administración del Sistema (Roles y Permisos)
 - **Administrador**: Control total, gestión de usuarios, cursos y materias.
 - **Rector**: Visión gerencial, reportes institucionales y monitoreo de desempeño.
 - **Coordinador**: Gestión operativa de matrículas y convivencia.
-- **Profesor**: Registro de notas y consulta de listados de clase.
-- **Orientador**: Gestión exclusiva del módulo de orientación.
+- **Profesor**: Registro de notas estricto y consulta de horario personal.
+- **Orientador**: Gestión exclusiva del módulo de orientación y centro de alertas.
 
 ## Estructura del Proyecto
 ```
@@ -78,5 +88,5 @@ pablo_neruda/
 - **Backups**: Scripts de respaldo disponibles en `backups/`.
 
 ---
-**Versión**: 1.2.0 (Febrero 2026)
+**Versión**: 2.0.0 (RC - Feria Tecnológica)
 **Desarrollado para**: Escuela Pablo Neruda - Barrio Las Malvinas.

@@ -48,6 +48,40 @@ class HorarioService
     }
 
     /**
+     * Obtiene el horario completo de un profesor estructurado por día y bloque.
+     */
+    public function obtenerHorarioProfesor(int $fkProfesor): array
+    {
+        $sql = "SELECT h.dia_semana, h.bloque_hora, 
+                       m.nombre as materia_nombre, 
+                       CONCAT(c.grado, ' - ', c.seccion) as curso_nombre
+                FROM horarios h
+                LEFT JOIN materias m ON h.fk_materia = m.id_materia
+                LEFT JOIN cursos c ON h.fk_curso = c.id_curso
+                WHERE h.fk_profesor = :profesorId
+                ORDER BY FIELD(h.dia_semana, 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'), h.bloque_hora";
+        
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['profesorId' => $fkProfesor]);
+        $resultados = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        // Estructurar en matriz [dia][bloque] para facilitar la vista
+        $matriz = [];
+        $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+        foreach ($dias as $dia) {
+            for ($b = 1; $b <= 6; $b++) {
+                $matriz[$dia][$b] = null; // Inicializar vacío
+            }
+        }
+
+        foreach ($resultados as $row) {
+            $matriz[$row['dia_semana']][$row['bloque_hora']] = $row;
+        }
+
+        return $matriz;
+    }
+
+    /**
      * Obtiene materias aplicables a un curso específico
      */
     public function obtenerMateriasPorCurso(string $grado): array

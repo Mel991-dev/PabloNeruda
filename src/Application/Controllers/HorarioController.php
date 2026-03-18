@@ -61,6 +61,27 @@ class HorarioController
     }
 
     /**
+     * Muestra el horario individual de un profesor autenticado.
+     */
+    public function miHorario(): void
+    {
+        $userRole = Session::get('rol');
+        $fkProfesor = Session::get('fk_profesor');
+
+        if ($userRole !== 'Profesor' || !$fkProfesor) {
+            Session::flash('error', 'Acceso denegado. Esta vista es exclusiva para profesores con carga académica asignada.');
+            Response::redirect(APP_URL . '/dashboard');
+            return;
+        }
+
+        $horarioMatrix = $this->horarioService->obtenerHorarioProfesor($fkProfesor);
+
+        Response::view('horarios.mi_horario', [
+            'horario' => $horarioMatrix
+        ]);
+    }
+
+    /**
      * Endpoint API para guardar un bloque del horario (Llamada AJAX)
      */
     public function guardarBloque(): void
