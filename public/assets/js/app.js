@@ -82,6 +82,35 @@ document.addEventListener('DOMContentLoaded', function () {
         if (localStorage.getItem('sidebarPinned') === 'true') {
             sidebar.classList.add('pinned');
         }
+        
+        // Lógica para toggle en móviles
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                sidebar.classList.toggle('mobile-open');
+            });
+            
+            // Cerrar sidebar móvil al hacer clic fuera o en un enlace
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 992) { // Bootstrap lg
+                    if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                        sidebar.classList.remove('mobile-open');
+                    }
+                    if (e.target.closest('.nav-link')) {
+                        sidebar.classList.remove('mobile-open');
+                    }
+                }
+            });
+            
+            // Limpiar la clase y forzar re-render de gráficas al volver a escritorio
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 992 && sidebar.classList.contains('mobile-open')) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            });
+        }
     }
 });
 

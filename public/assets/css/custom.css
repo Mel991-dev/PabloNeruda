@@ -162,10 +162,11 @@ body {
 .text-primary { color: var(--primary-color) !important; }
 
 /* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 991.98px) {
     .sidebar {
         width: 0;
         visibility: hidden;
+        z-index: 1050; /* Same as bootstrap modal/offcanvas to stay on top */
     }
     .main-content {
         margin-left: 0 !important;
@@ -174,5 +175,6 @@ body {
     .sidebar.mobile-open {
         width: var(--sidebar-expanded-width);
         visibility: visible;
+        box-shadow: 4px 0 15px rgba(0,0,0,0.5);
     }
 }

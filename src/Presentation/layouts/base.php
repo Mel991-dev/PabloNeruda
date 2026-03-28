@@ -29,9 +29,14 @@
         <main class="main-content" id="mainContent">
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg navbar-light sticky-top mb-4 shadow-sm">
-                <div class="container-fluid">
-                            <h4 class="mb-0"><?php echo $pageTitle ?? 'Dashboard'; ?></h4>
-                            <div class="d-flex align-items-center">
+                <div class="container-fluid flex-nowrap">
+                    <div class="d-flex align-items-center overflow-hidden me-3" style="min-width: 0;">
+                        <button class="btn btn-light me-2 border-0 d-lg-none flex-shrink-0" id="sidebarToggle" type="button">
+                            <i class="bi bi-list fs-4"></i>
+                        </button>
+                        <h4 class="mb-0 text-truncate text-break"><?php echo $pageTitle ?? 'Dashboard'; ?></h4>
+                    </div>
+                    <div class="d-flex align-items-center flex-shrink-0">
                                 <?php
                                 $userIdSession = \App\Core\Session::get('user_id');
                                 $rolSession = \App\Core\Session::get('rol');
