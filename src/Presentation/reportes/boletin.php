@@ -39,7 +39,7 @@
 <body>
 
     <div class="no-print" style="text-align: right; margin-bottom: 15px;">
-        <button onclick="window.print()" style="padding: 10px 20px; background: #667eea; color: white; border: none; cursor: pointer; border-radius: 5px;">
+        <button onclick="window.print()" style="padding: 10px 20px; background: #106018; color: white; border: none; cursor: pointer; border-radius: 5px; font-weight: bold;">
             🖨️ Imprimir Boletín
         </button>
     </div>
@@ -61,7 +61,22 @@
             <td class="label">Fecha Reporte:</td>
             <td><?php echo $data['fecha_generacion']; ?></td>
             <td class="label">Puesto:</td>
-            <td><?php echo $data['estadisticas']['puesto']; ?></td>
+            <td>
+                <?php
+                $puesto = $data['estadisticas']['puesto'];
+                if ($puesto === 'N/A') {
+                    echo '<span style="color:#999;">N/A</span>';
+                } elseif (str_starts_with($puesto, '1º')) {
+                    echo '🥇 <strong style="color:#106018;">' . htmlspecialchars($puesto) . '</strong>';
+                } elseif (str_starts_with($puesto, '2º')) {
+                    echo '🥈 <strong style="color:#555;">' . htmlspecialchars($puesto) . '</strong>';
+                } elseif (str_starts_with($puesto, '3º')) {
+                    echo '🥉 <strong style="color:#8B6914;">' . htmlspecialchars($puesto) . '</strong>';
+                } else {
+                    echo '<strong>' . htmlspecialchars($puesto) . '</strong>';
+                }
+                ?>
+            </td>
         </tr>
     </table>
 
@@ -122,10 +137,10 @@
     </div>
 
     <div class="footer">
-        <div class="signature">
+        <div class="signature" style="text-align:center;color:#333;">
             Rector(a)
         </div>
-        <div class="signature">
+        <div class="signature" style="text-align:center;color:#333;">
             Director(a) de Grupo
         </div>
     </div>
