@@ -178,3 +178,99 @@ body {
         box-shadow: 4px 0 15px rgba(0,0,0,0.5);
     }
 }
+/* ================================================================
+   OVERRIDES BOOTSTRAP: Reemplazar azul por color primario escuela
+   ================================================================ */
+
+/* -- Botones btn-primary ---------------------------------------- */
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    background-color: #0a3d0f !important;
+    border-color: #0a3d0f !important;
+    box-shadow: 0 0 0 0.25rem rgba(16,96,24,0.25) !important;
+}
+
+/* -- Botones btn-outline-primary -------------------------------- */
+.btn-outline-primary {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+}
+.btn-outline-primary:hover {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+
+/* -- btn-info → verde escuela ----------------------------------- */
+.btn-info {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+.btn-info:hover {
+    background-color: #0a3d0f !important;
+    border-color: #0a3d0f !important;
+}
+
+/* -- btn-warning → dorado escuela (mantener para editar) ------- */
+.btn-warning {
+    background-color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+    color: #000 !important;
+}
+.btn-warning:hover {
+    background-color: #e6c200 !important;
+    border-color: #e6c200 !important;
+}
+
+/* -- Cards con border-primary ----------------------------------- */
+.border-primary { border-color: var(--primary-color) !important; }
+
+/* -- Textos text-primary ---------------------------------------- */
+.text-primary { color: var(--primary-color) !important; }
+
+/* -- Fondos bg-primary ------------------------------------------ */
+.bg-primary { background-color: var(--primary-color) !important; }
+
+/* -- Links con color primary ------------------------------------ */
+a.text-primary, a:not([class]) { color: var(--primary-color) !important; }
+a:not([class]):hover { color: #0a3d0f !important; }
+
+/* -- focus ring ------------------------------------------------- */
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.2rem rgba(16,96,24,0.2) !important;
+}
+
+/* -- Modal header bg-primary ----------------------------------- */
+.modal-header.bg-primary { background-color: var(--primary-color) !important; }
+
+/* -- Alert info → brand --------------------------- */
+.alert-info {
+    background-color: #edf5ee !important;
+    border-color: var(--primary-color) !important;
+    color: #0a3d0f !important;
+}
+
+/* -- Badges / pill con bg-primary ------------------------------- */
+.badge.bg-primary, .badge.text-bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+/* -- card-header bg-primary ------------------------------------- */
+.card-header.bg-primary { background-color: var(--primary-color) !important; }
+
+/* -- Periodos del modal de boletín ------------------------------ */
+.periodo-card .periodo-num { color: var(--primary-color) !important; }
+.periodo-card:hover { border-color: var(--primary-color) !important; }
+
+/* -- Paginación ------------------------------------------------- */
+.page-link { color: var(--primary-color) !important; }
+.page-item.active .page-link {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: #fff !important;
+}
