@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="forgot-password">
-                    <a href="#">¿Olvidaste tu contraseña?</a>
+                    <a href="<?php echo APP_URL; ?>/forgot-password">¿Olvidaste tu contraseña?</a>
                 </div>
 
                 <button type="submit" class="btn-submit">INICIAR SESIÓN</button>
